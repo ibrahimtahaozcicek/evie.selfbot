@@ -8,11 +8,11 @@ It's built in Discord.js version 10.0.1 (at the moment)
 
 Have git installed on your machine and run the following command:
 
-`git clone https://github.com/eslachance/djs-selfbot-v9.git`
+`git clone https://github.com/eslachance/djs-selfbot.git`
 
 Once finished: 
 
-- `cd djs-selfbot-v9`
+- `cd djs-selfbot`
 - `npm install`
 - Rename `selfbot.sqlite.example` to `selfbot.sqlite`
 - Rename `config.json.example` to `config.json`
