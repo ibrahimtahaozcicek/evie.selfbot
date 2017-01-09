@@ -2,7 +2,7 @@
 
 This is the selfbot I use in my every day dealings with Discord. 
 
-It's built in Discord.js version 10.0.1 (at the moment)
+It's built in Discord.js version 10.0.1 (at the moment) but still works in version 11
 
 ## Downloading
 
@@ -18,9 +18,20 @@ Once finished:
 - Rename `config.json.example` to `config.json`
 - Edit `config.json` and enter your token
 
-> To get your token, do CTRL+SHIFT+I in Discord, type in `localStorage.token` and copy it.
+## Getting your login token
 
-Then start the bot using 
+> I AM NOT RESPONSIBLE AND CANNOT BE HELD LIABLE IF YOU MESS UP WITH SELFBOTS. THIS INCLUDES BUT IS NOT LIMITED TO LOSING PRIVILEGES, GETTING KICKED OR BANNED FROM SERVERS, OR BEING BANNED.
+
+1. From either the web application, or the installed Discord app, use the **CTRL+SHIFT+I** keyboard shortcut.
+2. This brings up the **Developer Tools**. Go to the **Application** tab
+3. On the left, expand **Storage**, then click on the desktopapp.com entry (it should be the only one).
+4. Locate the entry called `token`, and copy it.
+
+**KEEP YOUR TOKEN SECRET, AND NEVER SHARE IT WITH ANYONE**
+
+## Starting the selfbot
+
+To start the selfbot, in the command prompt, run the following command:
 `node app.js`
 
-For support join the [Discord.js Official server](https://discord.gg/bRCvFy9) and speak to `root`.
+For support join the [evie.codes discord server](http://discord.gg/QnWkbXV) and talk to me!
