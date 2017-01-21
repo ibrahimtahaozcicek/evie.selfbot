@@ -1,3 +1,5 @@
+const Discord = require("discord.js");
+
 exports.run = function(bot, msg, args) {
   var code = args.join(" ");
 

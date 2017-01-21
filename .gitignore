@@ -6,6 +6,7 @@ Thumbs.db
 runfiles/
 config.json
 selfbot.sqlite
+*.heapsnapshot
 
 # C/C++
 *.slo
