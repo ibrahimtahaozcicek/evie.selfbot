@@ -24,7 +24,7 @@ Once finished:
 
 1. From either the web application, or the installed Discord app, use the **CTRL+SHIFT+I** keyboard shortcut.
 2. This brings up the **Developer Tools**. Go to the **Application** tab
-3. On the left, expand **Storage**, then click on the desktopapp.com entry (it should be the only one).
+3. On the left, expand **Storage**, then click on the discordapp.com entry (it should be the only one).
 4. Locate the entry called `token`, and copy it.
 
 **KEEP YOUR TOKEN SECRET, AND NEVER SHARE IT WITH ANYONE**
@@ -34,4 +34,4 @@ Once finished:
 To start the selfbot, in the command prompt, run the following command:
 `node app.js`
 
-For support join the [evie.codes discord server](http://discord.gg/QnWkbXV) and talk to me!
+For support join [York's Server](https://discord.gg/9ESEZAx) and talk to me!
