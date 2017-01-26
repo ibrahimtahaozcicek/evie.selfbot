@@ -56,9 +56,38 @@ bot.on('message', msg => {
     let cmdFile = require("./commands/" + command);
     cmdFile.run(bot, msg, args);
   } catch(e) {
-    msg.edit(msg.author + `Error while executing command\n${e}`).then(setTimeout(msg.delete.bind(msg), 1000));
+    //msg.edit(msg.author + `Error while executing command\n${e}`).then(setTimeout(msg.delete.bind(msg), 1000));
   }
 });
+
+/*
+bot.on("guildMemberAdd", (member) => {
+  if(member.guild.id === "163038706117115906") {
+    console.log(`${member.user.username} (${member.user.id}) has joined TB Lounge`);
+    bot.channels.get("273163062943678464").sendEmbed({
+      color: 3447003,
+      author: {
+        name: `${member.user.username} (${member.user.id})`,
+        icon_url: member.user.avatarURL
+      },
+      description: `Joined | ${require("moment")().format('MMMM Do YYYY, HH:mm:ss ZZ')}\nCreated: | ${require("moment")(member.user.createdTimestamp).format('MMMM Do YYYY, HH:mm:ss ZZ')}`
+    });
+  }
+});
+
+bot.on("guildMemberRemove", (member) => {
+  if(member.guild.id === "163038706117115906") {
+    console.log(`${member.user.username} (${member.user.id}) has left TB Lounge`);
+    bot.channels.get("273163062943678464").sendEmbed({
+      color: 0xff0000,
+      author: {
+        name: `${member.user.username} (${member.user.id})`,
+        icon_url: member.user.avatarURL
+      },
+      description: `Left | ${require("moment")().format('MMMM Do YYYY, HH:mm:ss ZZ')}`
+    });
+  }
+});*/
 
 bot.on('error', console.error);
 bot.on('warn', console.warn);
