@@ -1,3 +1,3 @@
-exports.run = function(bot, msg, args) {
-  // insert code here
+exports.run = (bot, msg, args) => {
+  msg.reply("Changeme, fool");
 };

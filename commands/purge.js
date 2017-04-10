@@ -1,5 +1,5 @@
 exports.run = function(bot, msg, args) {
-  let messagecount = parseInt(args[0]) ? parseInt(args[0]) : 1;
+  let messagecount = parseInt(args[0]) ? parseInt(args[0])+1 : 2;
   msg.channel.fetchMessages({limit: messagecount})
   .then(messages => {
     messages.map(m => m.delete().catch(console.error) );

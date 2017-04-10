@@ -1,7 +1,7 @@
-exports.run = function(bot, msg, args) {
+exports.run = (bot, msg, args) => {
   let name = args[0];
   let contents = args.slice(1).join(" ");
   bot.slashes.add(bot, name, contents)
-  .then(msg.edit("Shortcut was added: "+name).then(setTimeout(msg.delete.bind(msg), 1000)))
-  .catch(e=> msg.edit(msg.author, e).then(setTimeout(msg.delete.bind(msg), 1000)));
+  .then(msg.edit("Shortcut was added: "+name).then(msg.delete.bind(2000)))
+  .catch(e=> msg.edit(e).then(msg.delete.bind(2000)));
 };

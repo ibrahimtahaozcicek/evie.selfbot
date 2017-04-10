@@ -1,18 +1,17 @@
 {
-  "name": "roots-selfbot",
-  "version": "1.0.0",
+  "name": "evie.selfbot",
+  "version": "1.1.0",
   "description": "A selfbot written in Discord.js v9",
-  "main": "self.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Evelyne Lachance <me@evie.codes>",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js#master",
     "erlpack": "github:hammerandchisel/erlpack",
     "moment": "^2.15.1",
-    "performance-now": ">=0.2.0",
     "sqlite": "^2.2.0",
     "sqlite3": "^3.1.8",
     "uws": "^0.11.1"

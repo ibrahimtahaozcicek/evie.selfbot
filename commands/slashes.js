@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args) {
-  bot.slashes.list(bot)
-  .then(message => msg.edit(message));
+exports.run = (bot, msg, args) => {
+  let list = bot.slashes.list(bot);
+  msg.edit("`Slash Commands:`\n" + list);
 };

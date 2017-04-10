@@ -3,10 +3,20 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const config = require('./config.json');
 
+// Readline module test
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.on('line', input => {
+  console.log(eval(input));
+});
+
 const log = (type, title, author, msg) => {
-  console.log(title + "\n" + msg);
-  /*const logChannel = (type === "mention") ? bot.channels.get(config.channels.mentions) : bot.channels.get(config.channels.logs);
-  if(!logChannel) return console.log(`[${type}] [${title}] ${msg}`);
+  const logChannel = (type === "mention") ? bot.channels.get(config.channels.mentions) : bot.channels.get(config.channels.logs);
+  if(!logChannel) return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
   logChannel.sendMessage("", {embed: {
     color: 3447003,
     author: {
@@ -16,8 +26,10 @@ const log = (type, title, author, msg) => {
     title: title,
     url: '',
     description: msg
-  }});*/
+  }});
 };
+
+bot.on("debug", m => console.log);
 
 // Before using, rename `selfbot.sqlite.example` to `selfbot.sqlite`
 const db = require('sqlite');
@@ -29,17 +41,18 @@ bot.db = db;
 bot.slashes = require("./modules/slashes.js");
 
 bot.on('ready', () => {
-  log("log", "Bot Ready", bot.user, `Selfbot Rewrite: Ready to spy on ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
+  log("log", "Bot Ready", bot.user, `Ready to spy on ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
   delete bot.user.email;
   delete bot.user.verified;
   bot.slashes.init(bot);
-  console.log("=> Ready");
+  bot.user.setStatus("invisible");
 });
 
-bot.on('message', msg => {
+bot.on('message', (msg) => {
   if(msg.isMentioned(bot.user.id) || msg.mentions.everyone || (msg.guild && msg.mentions.roles.filter(r=>msg.guild.member(bot.user.id).roles.has(r.id)).size > 0)) {
     log("mention", `${msg.guild.name} #${msg.channel.name}`, msg.author, msg.content);
   }
+  
 
   if(msg.author.id !== bot.user.id) return;
   if(!msg.content.startsWith(config.prefix)) return;

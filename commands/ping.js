@@ -1,7 +1,4 @@
-exports.run = function(bot, msg, args) {
+exports.run = (bot, msg, args) => {
   msg.delete();
-  msg.channel.sendMessage("Ping?")
-    .then(message => {
-      message.edit(`Pong! (took: ${message.createdTimestamp - msg.createdTimestamp}ms)`);
-    });
+  msg.channel.send("Ping?").then(m => m.edit(`Pong! Latency is ${m.createdTimestamp - msg.createdTimestamp}ms. API Latency is ${Math.round(bot.ping)}ms`) );
 };

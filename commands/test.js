@@ -1,3 +1,11 @@
-exports.run = function(bot, msg, args) {
-  msg.edit(`testing 1, 2, 1, 2`).then(setTimeout(msg.delete.bind(msg), 1000));
+const Discord = require("discord.js");
+
+exports.run = async (bot, msg, args) => {
+  await msg.delete();
+  const embed = new Discord.RichEmbed()
+  .setTitle("Testing")
+  .addField("Channel", msg.channel.toString(), true)
+  .setFooter("this is a footer");
+  
+  msg.channel.sendEmbed(embed);
 };

@@ -7,25 +7,36 @@ exports.init = (bot) => {
       slashes.set(row.name, {contents: row.contents, used: row.used});
     });
   });
+  this.bot = bot;
 };
 
 exports.has = (name) => {
   return slashes.has(name);
 };
 
+exports.inc = (name) => {
+  if(this.has(name)) {
+    const slash = slashes.get(name);
+    slash.used++;
+    slashes.set(name, slash);
+    this.bot.db.run(`UPDATE SHORTCUTS SET used = used+1;`);
+  }
+};
+
 exports.get = (name) => {
   if(this.has(name)) {
     let slash = slashes.get(name);
+    this.inc(name);
     return slash;
   } else {
     return false;
   }
-}
+};
 
 exports.add = (bot, name, contents) => new Promise((resolve, reject) => {
   if(!this.has(name)) {
     bot.db.run(`INSERT INTO "shortcuts" (name, contents) VALUES (?, ?)`, [name, contents]).then(()=>{
-      slashes.set(name, contents);
+      slashes.set(name, {contents: contents, used: 0});
       resolve(name);
     });
   } else {
@@ -46,17 +57,15 @@ exports.delete = (bot, name) => new Promise((resolve, reject) => {
   }
 });
 
-exports.list = (bot) => new Promise((resolve, reject) => {
+exports.list = (bot) => {
     let message = [];
     message.push("```xl");
     var longest = slashes.map((s,k,i)=>k).reduce(function (a, b) { return a.length > b.length ? a : b; });
     slashes.forEach((props, name)=>{
-      console.log(name, props);
       let padded = (name + " ".repeat(longest.length+1-name.length));
       let count = (props.used + " ".repeat(3-props.used.toString().length));
-      //console.log(`${padded}: `);
-      message.push(`${bot.config.prefix}${padded} : ${count} : ${props.contents}`);
+      message.push(`${bot.config.prefix}${padded} : ${count}`);
     });
     message.push("```");
-    resolve(message);
-});
+    return message.join("\n");
+};
