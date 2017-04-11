@@ -28,6 +28,7 @@ const log = (type, title, author, msg) => {
     description: msg
   }});
 };
+bot.log = log;
 
 bot.on("debug", m => console.log);
 

@@ -4,7 +4,6 @@
     "logs": "If you want logs to appear in a discord channel, enter the ID here",
     "mentions": "if you want mentions to appear in a channel, enter the channel ID here"
   },
-  "logChannel": "enter a valid channel ID for logging mentions and other events",
   "password": "enter your discord password to change some things like Avatars or Username",
   "prefix": "/"
 }
