@@ -26,17 +26,17 @@ exports.run = async (bot, msg, args) => {
               <Client> is what ever you defined your new Discord.Client();
     
 
-const user = <Message>.mentions.users.first();
-const amount = !!parseInt(<Message>.content.split(" ")[1]) ? parseInt(<Message>.content.split(" ")[2]) : parseInt(<Message>.content.split(" ")[1])
-if (!amount) return <Message>.reply("Must specify an amount to delete!");
-if (!amount && !user) return <Message>.reply("Must specify a user and amount, or just an amount, of messages to purge!");
-<Message>.channel.fetchMessages({
-  limit: amount,
-}).then((messages) => {
-  if (user) {
-    const filterBy = user ? user.id : Client.user.id;
-    messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
-  }
+  const user = (<Message>.mentions.users.first() || bot.users.get(args[0]) || null);
+  const amount = !!user ? parseInt(<Message>.content.split(" ")[2]) : parseInt(<Message>.content.split(" ")[1]);
+  if (!amount) return <Message>.reply("Must specify an amount to delete!");
+  if (!amount && !user) return <Message>.reply("Must specify a user and amount, or just an amount, of messages to purge!");
+  <Message>.channel.fetchMessages({limit: 100}).then((messages) => {
+    if (user) {
+      messages = messages.filter(m => m.author.id === user.id).array();
+    } else {
+      messages = messages.array();
+    }
+    
   <Message>.channel.bulkDelete(messages).catch(error => console.log(error.stack));
 });
 
