@@ -10,11 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js#master",
-    "erlpack": "github:hammerandchisel/erlpack",
     "moment": "^2.15.1",
     "sqlite": "^2.2.0",
     "sqlite3": "^3.1.8",
-    "uws": "^0.11.1"
   },
   "devDependencies": {}
 }
