@@ -12,7 +12,7 @@
     "discord.js": "github:hydrabolt/discord.js#master",
     "moment": "^2.15.1",
     "sqlite": "^2.2.0",
-    "sqlite3": "^3.1.8",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {}
 }
