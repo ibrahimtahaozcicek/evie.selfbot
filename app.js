@@ -49,6 +49,20 @@ bot.on('ready', () => {
   bot.user.setStatus("invisible");
 });
 
+bot.once('ready', () => {
+  const fs = require("fs");
+  try {
+    const rebootData = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
+    let rebootMsgID = rebootData.id;
+    let rebootMsgChan = rebootData.channel;
+    if(!rebootMsgID || !rebootMsgChan) return;
+    bot.channels.get(rebootMsgChan).fetchMessage(rebootMsgID).then(m=>m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`))
+      .then(() => {
+        fs.unlink('./reboot.json', ()=>{});
+      });
+  } catch(O_o){console.error(O_o)}
+});
+
 bot.on('message', (msg) => {
   if(msg.isMentioned(bot.user.id) || msg.mentions.everyone || (msg.guild && msg.mentions.roles.filter(r=>msg.guild.member(bot.user.id).roles.has(r.id)).size > 0)) {
     log("mention", `${msg.guild.name} #${msg.channel.name}`, msg.author, msg.content);
@@ -69,39 +83,8 @@ bot.on('message', (msg) => {
   try {
     let cmdFile = require("./commands/" + command);
     cmdFile.run(bot, msg, args);
-  } catch(e) {
-    //msg.edit(msg.author + `Error while executing command\n${e}`).then(setTimeout(msg.delete.bind(msg), 1000));
-  }
+  } catch(O_o){}
 });
-
-/*
-bot.on("guildMemberAdd", (member) => {
-  if(member.guild.id === "163038706117115906") {
-    console.log(`${member.user.username} (${member.user.id}) has joined TB Lounge`);
-    bot.channels.get("273163062943678464").sendEmbed({
-      color: 3447003,
-      author: {
-        name: `${member.user.username} (${member.user.id})`,
-        icon_url: member.user.avatarURL
-      },
-      description: `Joined | ${require("moment")().format('MMMM Do YYYY, HH:mm:ss ZZ')}\nCreated: | ${require("moment")(member.user.createdTimestamp).format('MMMM Do YYYY, HH:mm:ss ZZ')}`
-    });
-  }
-});
-
-bot.on("guildMemberRemove", (member) => {
-  if(member.guild.id === "163038706117115906") {
-    console.log(`${member.user.username} (${member.user.id}) has left TB Lounge`);
-    bot.channels.get("273163062943678464").sendEmbed({
-      color: 0xff0000,
-      author: {
-        name: `${member.user.username} (${member.user.id})`,
-        icon_url: member.user.avatarURL
-      },
-      description: `Left | ${require("moment")().format('MMMM Do YYYY, HH:mm:ss ZZ')}`
-    });
-  }
-});*/
 
 bot.on('error', console.error);
 bot.on('warn', console.warn);
@@ -112,9 +95,9 @@ bot.password = config.password;
 
 process.on('uncaughtException', (err) => {
   let errorMsg = err.stack.replace(new RegExp(`${__dirname}\/`, 'g'), './');
-  log("error", "Uncaught Exception", bot.user, errorMsg);
+  console.error("Uncaught Exception: ", errorMsg);
 });
 
 process.on("unhandledRejection", err => {
-  console.error("Uncaught Promise Error", bot.user, err);
+  console.error("Uncaught Promise Error: ", err);
 });
