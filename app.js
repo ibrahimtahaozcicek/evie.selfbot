@@ -52,15 +52,10 @@ bot.on('ready', () => {
 bot.once('ready', () => {
   const fs = require("fs");
   try {
-    const rebootData = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
-    let rebootMsgID = rebootData.id;
-    let rebootMsgChan = rebootData.channel;
-    if(!rebootMsgID || !rebootMsgChan) return;
+    const { rebootMsgID , rebootMsgChan} = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
     bot.channels.get(rebootMsgChan).fetchMessage(rebootMsgID).then(m=>m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`))
-      .then(() => {
-        fs.unlink('./reboot.json', ()=>{});
-      });
-  } catch(O_o){console.error(O_o)}
+      .then(() => { fs.unlink('./reboot.json', ()=>{}); });
+  } catch(O_o){}
 });
 
 bot.on('message', (msg) => {
