@@ -1,3 +1,46 @@
+exports.run = async (bot, msg, args) => {
+    msg.channel.send({embed: {
+        title: 'Embed Title',
+            "thumbnail": {
+      "url": "https://cdn.discordapp.com/icons/268800390961561601/86b9a2f4c9102c22de665e666caece2c.jpg"
+    },
+        fields:  [ {
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },
+      {
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true },{
+       name: 'FieldName',
+       value: 'Field Value',
+       inline: true }, ]
+      }
+    });
+};
+
+/*
 const Discord = require("discord.js");
 
 exports.run = async (bot, msg, args) => {
@@ -29,3 +72,4 @@ function Promisify(func){
 }
 
 const promiseMyFunc = Promisify(myFunc);
+*/

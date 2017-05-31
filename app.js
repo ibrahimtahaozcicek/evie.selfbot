@@ -18,11 +18,11 @@ rl.on('line', input => {
 const log = (type, title, author, msg) => {
   const logChannel = (type === "mention") ? bot.channels.get(config.channels.mentions) : bot.channels.get(config.channels.logs);
   if(!logChannel) return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
-  logChannel.sendMessage("", {embed: {
+  logChannel.send({embed: {
     color: 3447003,
     author: {
       name: `${author.username} (${author.id})`,
-      icon_url: author.avatarURL
+      icon_url: author.avatarURL()
     },
     title: title,
     url: '',
@@ -42,21 +42,23 @@ bot.db = db;
 
 bot.slashes = require("./modules/slashes.js");
 
-bot.on('ready', () => {
-  log("log", "Bot Ready", bot.user, `Ready to spy on ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
+bot.on('ready', async () => {
   delete bot.user.email;
   delete bot.user.verified;
   bot.slashes.init(bot);
-  bot.user.setStatus("invisible");
+  await bot.wait(1000);
+  log("log", "Bot Ready", bot.user, `Ready to spy on ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
 });
 
-bot.once('ready', () => {
+bot.once('ready', async () => {
   const fs = require("fs");
   try {
-    const { rebootMsgID , rebootMsgChan} = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
-    bot.channels.get(rebootMsgChan).fetchMessage(rebootMsgID).then(m=>m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`))
-      .then(() => { fs.unlink('./reboot.json', ()=>{}); });
-  } catch(O_o){}
+    const { id: rebootMsgID , channel: rebootMsgChan} = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
+    const m = await bot.channels.get(rebootMsgChan).fetchMessage(rebootMsgID);
+    await m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`);
+    fs.unlink('./reboot.json', ()=>{});
+  } catch(O_o){console.error("Error while setting rebooted timestamp: " + O_o)}
+  bot.db.run("CREATE TABLE IF NOT EXISTS quotes(channel TEXT PRIMARY KEY, message TEXT NOT NULL, author TEXT NOT NULL, name TEXT NOT NULL, embed BLOB NOT NULL)");
 });
 
 bot.on('message', (msg) => {
@@ -97,3 +99,20 @@ process.on('uncaughtException', (err) => {
 process.on("unhandledRejection", err => {
   console.error("Uncaught Promise Error: ", err);
 });
+
+// Yeah yeah this is stupid shut up about it.
+const wait = async (delay) => {
+  return new Promise((res, rej) => {
+    setTimeout(res, delay);
+  });
+};
+bot.wait = wait;
+
+const range = (count, start = 0) => {
+  const myArr = [];
+  for(var i = 0; i<count; i++) {
+    myArr[i] = i+start;
+  }
+  return myArr;
+};
+bot.range = range;

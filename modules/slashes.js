@@ -19,7 +19,7 @@ exports.inc = (name) => {
     const slash = slashes.get(name);
     slash.used++;
     slashes.set(name, slash);
-    this.bot.db.run(`UPDATE SHORTCUTS SET used = used+1;`);
+    this.bot.db.run(`UPDATE SHORTCUTS SET used = used+1 WHERE name = ?;`, [name]);
   }
 };
 
@@ -55,6 +55,19 @@ exports.delete = (bot, name) => new Promise((resolve, reject) => {
   } else {
     reject("This Slash Shortcut does not exist!");
   }
+});
+
+
+exports.edit = (bot, name, contents) => new Promise((resolve, reject) => {
+  if(!this.has(name)) return reject("Invalid Slash Shortcut Name");
+  if(contents.length < 1) return reject("Slash Shortcut Content is Empty!");
+  const editSlash = slashes.get(name);
+  
+  bot.db.run(`UPDATE shortcuts SET contents = ? WHERE name = ?`, [contents, name]).then( () => {
+    slashes.set(name, {contents: contents, used: editSlash.used});
+    resolve();
+  })
+  .catch(reject);
 });
 
 exports.list = (bot) => {
