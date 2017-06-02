@@ -4,3 +4,16 @@ exports.run = (bot, msg, args) => {
   .then(msg.edit(`The slash command ${name} has been deleted`).then(msg.delete(2000)))
   .catch(e=> msg.edit(e).then(msg.delete(2000)));
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'delslash',
+  description: 'Deletes a saved custom / shortcut by name.',
+  usage: 'delslash [slash name]'
+};

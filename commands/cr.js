@@ -12,3 +12,16 @@ exports.run = function(bot, msg, args) {
     });
   });
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'cr',
+  description: 'Clears all reactions from given number of messages.',
+  usage: 'cr [message count]'
+};

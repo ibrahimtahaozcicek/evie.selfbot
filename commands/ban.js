@@ -5,3 +5,16 @@ exports.run = function(bot, msg, args) {
     .then( () => console.log(`Banned ${ban_id} and removed ${days} days of messages`))
     .catch(console.error);
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: true,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'ban',
+  description: 'Bans the mentioned user.',
+  usage: 'ban [mention]'
+};

@@ -19,6 +19,21 @@ ${clean(stdOut)}
 \`\`\``);
 };
 
+
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'exec',
+  description: 'Executes a console command.',
+  usage: 'exec [command]'
+};
+
 const outputErr = (msg, stdData) => {
   let { stdout, stderr } = stdData;
   stderr = stderr ? ["`STDERR`","```sh",clean(stderr.substring(0, 800)) || " ","```"] : [];

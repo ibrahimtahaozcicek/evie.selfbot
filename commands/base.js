@@ -5,3 +5,16 @@ exports.run = (bot, msg, args) => {
   /* example: `/test blah foo thing` , where `["blah", "foo", "thing"]` is the value of `args`. */
   msg.reply("Changeme, fool");
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'base',
+  description: 'Example command to copy and modify',
+  usage: 'base [arg1] [arg2]'
+};

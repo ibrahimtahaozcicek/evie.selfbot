@@ -16,28 +16,15 @@ exports.run = async (bot, msg, args) => {
   messages.map(async m => await m.delete().catch(console.error));
 };
 
-/*
-    Example by eslachance#4611
-    Example usage: !purge @user 10 , or !purge 25
-    Assumes your <Message> variable is <Message>
-    If no user is provided, deletes any <Message>.
-    
-    REMINDER: <Message> is what you defined in the <Client>.on('<Message>', <Message>) event.
-              <Client> is what ever you defined your new Discord.Client();
-    
+exports.conf = {
+  enabled: true,
+  guildOnly: true,
+  aliases: [],
+  permLevel: 0
+};
 
-  const user = (<Message>.mentions.users.first() || bot.users.get(args[0]) || null);
-  const amount = !!user ? parseInt(<Message>.content.split(" ")[2]) : parseInt(<Message>.content.split(" ")[1]);
-  if (!amount) return <Message>.reply("Must specify an amount to delete!");
-  if (!amount && !user) return <Message>.reply("Must specify a user and amount, or just an amount, of messages to purge!");
-  <Message>.channel.fetchMessages({limit: 100}).then((messages) => {
-    if (user) {
-      messages = messages.filter(m => m.author.id === user.id).array();
-    } else {
-      messages = messages.array();
-    }
-    
-  <Message>.channel.bulkDelete(messages).catch(error => console.log(error.stack));
-});
-
-*/
+exports.help = {
+  name: 'purge',
+  description: 'Deletes messages from anyone in the channel (requires Manage Messages)',
+  usage: 'purge [number of messages]'
+};

@@ -1,9 +1,11 @@
 const Discord = require("discord.js");
 
-exports.run = function(bot, msg, args) {
+exports.run = async (bot, msg, args) => {
   var code = args.join(" ");
   try {
       var evaled = eval(code);
+      if (evaled.constructor.name == 'Promise')
+        evaled = await evaled;
       if (typeof evaled !== 'string')
         evaled = require('util').inspect(evaled);
       msg.channel.sendMessage(`\`\`\`xl\n${clean(evaled)}\n\`\`\``
@@ -14,10 +16,17 @@ exports.run = function(bot, msg, args) {
   }
 };
 
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
 exports.help = {
- name: "Javascript Evaluation",
- command: "eval",
- description: `Evaluates arbitrary javascript`
+  name: 'eval',
+  description: 'Evaluates arbitrary javascript.',
+  usage: 'eval [...code]'
 };
 
 

@@ -10,5 +10,19 @@ exports.run = function(bot, msg, args) {
 • Users      :: ${bot.users.size.toLocaleString()}
 • Servers    :: ${bot.guilds.size.toLocaleString()}
 • Channels   :: ${bot.channels.size.toLocaleString()}
-• Discord.js :: v${Discord.version}`);
+• Discord.js :: v${Discord.version}
+• Node       :: v${process.version}`);
+};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'stats',
+  description: 'Gives some useful bot statistics',
+  usage: 'stats'
 };

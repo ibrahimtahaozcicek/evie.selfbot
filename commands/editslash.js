@@ -5,3 +5,16 @@ exports.run = (bot, msg, args) => {
   .then(msg.edit("Shortcut was edited: "+name).then(msg.delete(2000)))
   .catch(e=> msg.edit(e).then(msg.delete(2000)));
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'editslash',
+  description: 'Edit the contents of a custom / shorcut.',
+  usage: 'editslash [name] [contents]'
+};

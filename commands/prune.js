@@ -8,3 +8,17 @@ exports.run = function(bot, msg, args) {
     msg_array.map(m => m.delete().catch(console.error));
    });
 };
+
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'prune',
+  description: 'Prunes messages from yourself only.',
+  usage: 'prune [number of messages]'
+};

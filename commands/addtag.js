@@ -10,3 +10,16 @@ exports.run = function(bot, msg, args) {
       else  msg.edit(`Bitch that tag already exists`).then(setTimeout(msg.delete.bind(msg), 1000));
     });
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'addtag',
+  description: 'Creates a new tag',
+  usage: 'addtag [name] [...contents]'
+};

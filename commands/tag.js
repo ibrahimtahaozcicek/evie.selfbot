@@ -10,3 +10,16 @@ exports.run = function(bot, msg, args) {
    else msg.edit(`You dumbass, that tag doesn't exist. Go back to school!`).then(setTimeout(msg.delete.bind(msg), 1000));
  });
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'tag',
+  description: 'Displays the contents of a tag from the database.',
+  usage: 'tag [tagname]'
+};

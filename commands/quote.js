@@ -65,3 +65,17 @@ exports.run = async (bot, msg, args) => {
   msg.channel.send({embed: JSON.parse(exists.embed)});
   
 };
+
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'quote',
+  description: 'Saves or recalls a quote from someone (this requires extended help, see wiki)',
+  usage: 'quote [options]'
+};

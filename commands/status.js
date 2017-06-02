@@ -7,7 +7,8 @@ exports.run = function(bot, msg, args) {
       "off": "invisible",
       "invis": "invisible",
       "i": "invisible",
-      "dnd": "dnd"
+      "dnd": "dnd",
+      "idle": "idle"
     };
     let status = statuses[args[0].toLowerCase()];
     if(!status) {
@@ -23,4 +24,17 @@ exports.run = function(bot, msg, args) {
     }).catch(e=> {
       msg.edit(`Error while changing status to: ${status}\n\`\`\`${e}\`\`\``).then(setTimeout(msg.delete.bind(msg), 1000));
     });
+};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ["s"],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'status',
+  description: 'Changes the Status of the bot/user',
+  usage: 'status [online/invisible/dnd/idle]'
 };

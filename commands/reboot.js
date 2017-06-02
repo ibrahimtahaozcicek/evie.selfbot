@@ -7,3 +7,16 @@ exports.run = function(bot, msg, args) {
     });
   });
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ["restart"],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'reboot',
+  description: 'Restarts bot and indicates the reboot time.',
+  usage: 'reboot'
+};

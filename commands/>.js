@@ -6,3 +6,16 @@ exports.run = function(bot, msg, args) {
     .setColor([114, 137, 218]);
   msg.channel.sendEmbed(embed);
 };
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ["embed"],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'embed',
+  description: 'Bans the mentioned user.',
+  usage: '> Embed Text'
+};
