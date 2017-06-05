@@ -5,7 +5,7 @@ exports.run = function(client, msg, args) {
   const command = args[0];
 
   delete require.cache[require.resolve(`.${path.sep}${command}.js`)];
-  let cmd = require(`./commands/${command}`);
+  let cmd = require(`./${command}`);
   client.commands.delete(command);
   client.aliases.forEach((cmd, alias) => {
     if (cmd === command) client.aliases.delete(alias);

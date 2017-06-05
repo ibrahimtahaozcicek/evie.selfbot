@@ -12,6 +12,5 @@ module.exports = async client => {
     await m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`);
     fs.unlink('./reboot.json', ()=>{});
   } catch(O_o){console.error("Error while setting rebooted timestamp: " + O_o)}
-  client.db.run("CREATE TABLE IF NOT EXISTS quotes(channel TEXT PRIMARY KEY, message TEXT NOT NULL, author TEXT NOT NULL, name TEXT NOT NULL, embed BLOB NOT NULL)");
-
+  client.db.run("CREATE TABLE IF NOT EXISTS quotes(name TEXT PRIMARY KEY NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, author TEXT NOT NULL, embed BLOB NOT NULL)");
 };

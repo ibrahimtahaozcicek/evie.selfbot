@@ -6,6 +6,14 @@ exports.run = async (bot, msg, args) => {
     return msg.edit(`Quotes stored in database:\n\`\`\` \n${list.map(r=>r.name).join(", ")}\n\`\`\``);
   }
   
+  if(args[0] == "tempfix") {
+    await bot.db.run("ALTER TABLE quotes RENAME TO tmp_quotes;");
+    await bot.db.run("CREATE TABLE quotes(name TEXT PRIMARY KEY NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, author TEXT NOT NULL, embed BLOB NOT NULL)");
+    await bot.db.run("INSERT INTO quotes(name, message, channel, author, embed) SELECT name, message, channel, author, embed FROM tmp_quotes;");
+    await bot.db.run("DELETE TABLE tmp_quotes;");
+    return msg.edit("Quote database has been fixed!").then(msg.delete(1000));
+  }
+  
   if(args[0] == "add") {
     try {
       if(args[1] && args[1] == "here") args[1] = msg.channel.id;

@@ -11,7 +11,7 @@ exports.run = function(bot, msg, args) {
 • Servers    :: ${bot.guilds.size.toLocaleString()}
 • Channels   :: ${bot.channels.size.toLocaleString()}
 • Discord.js :: v${Discord.version}
-• Node       :: v${process.version}`);
+• Node       :: ${process.version}`);
 };
 
 exports.conf = {

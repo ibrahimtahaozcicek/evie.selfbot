@@ -10,6 +10,7 @@ exports.run = function(bot, msg, args) {
       "dnd": "dnd",
       "idle": "idle"
     };
+    if(!args[0]) return msg.edit(`That's right you can call me a derp.`).then(setTimeout(msg.delete.bind(msg), 1000));
     let status = statuses[args[0].toLowerCase()];
     if(!status) {
       return msg.edit(`Apparently I'm an idiot because ${status} isn't a valid status. Fucking derp.`).then(setTimeout(msg.delete.bind(msg), 1000));
