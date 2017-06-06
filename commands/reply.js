@@ -25,5 +25,5 @@ exports.conf = {
 exports.help = {
   name: 'reply',
   description: 'Replies to a message by ID, by embedding the original below your response. Requires embed permissions!',
-  usage: 'reload [message ID]'
+  usage: 'reply [message ID]'
 };
