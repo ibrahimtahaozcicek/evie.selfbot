@@ -4,7 +4,6 @@ const client = new Discord.Client();
 const config = require('./config.json');
 require('discord.js-aliases');
 const fs = require("fs-extra");
-const { sep } = require("path");
 
 // Readline module test
 const readline = require('readline');
@@ -46,9 +45,11 @@ fs.readdir('./events/', (err, files) => {
   console.log(`Loading a total of ${files.length} events.`);
   files.forEach(file => {
     const eventName = file.split(".")[0];
-    const event = require(`.${sep}events${sep}${file}`);
+    // Forward slash (/) is also supported on Windows and required on some machines.
+    // Source: https://nodejs.org/api/path.html#path_path_sep
+    const event = require(`./events/${file}`);
     client.on(eventName, event.bind(null, client));
-    delete require.cache[require.resolve(`.${sep}events${sep}${file}`)];
+    delete require.cache[require.resolve(`./events/${file}`)];
   });
 });
 
