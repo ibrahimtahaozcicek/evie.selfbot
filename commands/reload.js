@@ -1,8 +1,15 @@
 const path = require("path");
 
-exports.run = function(client, msg, args) {
+exports.run = async (client, msg, args) => {
   if(!args || args.size < 1) return msg.edit(`Must provide a command to reload. Derp.`).then(setTimeout(msg.delete.bind(msg), 1000));
-  const command = args[0];
+
+  let command;
+  if (client.commands.has(args[0])) {
+    command = client.commands.get(args[0]);
+  } else if (client.aliases.has(args[0])) {
+    command = client.commands.get(client.aliases.get(args[0]));
+  }
+  if(!command) return msg.edit(`The command \`${args[0]}\` doesn't seem to exist, nor is it an alias. Try again!`).then(setTimeout(msg.delete.bind(msg), 1000));
 
   delete require.cache[require.resolve(`.${path.sep}${command}.js`)];
   let cmd = require(`./${command}`);
@@ -15,7 +22,7 @@ exports.run = function(client, msg, args) {
     client.aliases.set(alias, cmd.help.name);
   });
 
-  msg.edit(`The command ${args[0]} has been reloaded`).then(setTimeout(msg.delete.bind(msg), 1000));
+  msg.edit(`The command \`${command}\` has been reloaded`).then(setTimeout(msg.delete.bind(msg), 1000));
 };
 
 exports.conf = {

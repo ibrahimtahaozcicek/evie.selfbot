@@ -12,9 +12,17 @@ Also, an important point is: this requires *some* knowledge of javascript and yo
 
 Evie.Selfbot is built using the [Discord.js](http://discord.js.org/) library version 11.x, which is installed automatically when running `npm install` as per the install steps below.
 
+## Requirements
+
+- `git` command line ([Windows](https://git-scm.com/download/win)|[Linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)|[MacOS](https://git-scm.com/download/mac)) installed
+- `node` [Version 8.0.0 or higher](https://nodejs.org)
+- `a machine` to host it on. Want it to be online 24/7? Get a VPS.
+- `some goddamn sense` If you don't intend to read the rest of this document, you shouldn't bother using this selfbot.
+- `some knowledge of node` because I'm not there to handhold you.
+
 ## Downloading
 
-Have git ([Windows](https://git-scm.com/download/win)|[Linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)|[MacOS](https://git-scm.com/download/mac)) installed on your machine and run the following command:
+In a command prompt in your projects folder (wherever that may be) run the following:
 
 `git clone https://github.com/eslachance/evie.selfbot.git`
 
@@ -41,24 +49,13 @@ Once finished:
 To start the selfbot, in the command prompt, run the following command:
 `node app.js`
 
-For support join [York's Server](https://discord.gg/9ESEZAx) and talk to me, 〈evie.codes〉!
+> If you get an error about SQLite not being available or not building, run `npm rebuild` and runt he bot again.
 
-## Adding Commands
+> If at any point it says "cannot find module X" just run `npm install X` and try again.
 
-To add a command, create a new file in the `./commands/` folder. The name of the file will be the command trigger. 
+For support join [〈evie.codes〉](https://discord.gg/PhT8scR) and talk to me, 〈evie.codes〉!
 
-For example, let's add a new command called "blah": 
+## Making your own stuff
 
-`./commands/blah.js` is the filename. The base contents of a command is the following: 
-
-```js
-exports.run = (bot, msg, args) => {
-  msg.reply("Changeme, fool");
-};
-```
-
-Anything inside this exports.run() function will be executed when `/blah` is said in chat. Commands are built
-using regular, standard discord.js code - there is nothing special about any of this. `args` is the arguments
-of the command being put in the chat, which is "the whole message split by space, with the command removed". 
-So for example if you do `/blah 1 2 thing heck`, `args` is an array as such: `["1", "2", "thing", "heck"]` (yes, 
-those are all strings).
+Please see the [wiki on github](https://github.com/eslachance/evie.selfbot/wiki) for details on
+adding your own commands, events, etc.

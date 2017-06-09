@@ -1,7 +1,7 @@
 module.exports = (client) => {
-  client.wait = require('util').promisify(setTimeout);
+  global.wait = require('util').promisify(setTimeout);
 
-  client.range = (count, start = 0) => {
+  global.range = (count, start = 0) => {
     const myArr = [];
     for(var i = 0; i<count; i++) {
       myArr[i] = i+start;
@@ -10,7 +10,6 @@ module.exports = (client) => {
   };
   
   client.elevation = message => (message.author.id === client.user.id);
-  
   
   client.log = (type, title, author, msg) => {
     const logChannel = (type === "mention") ? client.channels.get(client.config.channels.mentions) : client.channels.get(client.config.channels.logs);

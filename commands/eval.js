@@ -4,7 +4,7 @@ exports.run = async (bot, msg, args) => {
   var code = args.join(" ");
   try {
       var evaled = eval(code);
-      if (evaled.constructor.name == 'Promise')
+      if (evaled && evaled.constructor.name == 'Promise')
         evaled = await evaled;
       if (typeof evaled !== 'string')
         evaled = require('util').inspect(evaled);
