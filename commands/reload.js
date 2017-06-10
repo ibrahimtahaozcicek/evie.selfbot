@@ -10,8 +10,6 @@ exports.run = async (client, msg, args) => {
   if(!command) return msg.edit(`The command \`${args[0]}\` doesn't seem to exist, nor is it an alias. Try again!`).then(setTimeout(msg.delete.bind(msg), 1000));
   command = command.help.name;
 
-  // Forward slash (/) is also supported on Windows and required on some machines.
-  // Source: https://nodejs.org/api/path.html#path_path_sep
   delete require.cache[require.resolve(`./${command}.js`)];
   let cmd = require(`./${command}`);
   client.commands.delete(command);

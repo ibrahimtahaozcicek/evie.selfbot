@@ -3,7 +3,7 @@ exports.run = function(bot, msg, args) {
   msg.channel.fetchMessages({limit: 1, around: replyTo})
   .then(messages=> {
     const replyToMsg = messages.first();
-    msg.channel.sendMessage(`Source Code for MSG ID ${replyTo}: \`\`\`md\n${clean(replyToMsg.content)}\n\`\`\``)
+    msg.channel.send(`Source Code for MSG ID ${replyTo}: \`\`\`md\n${clean(replyToMsg.content)}\n\`\`\``)
     .then(() => msg.delete());
   }).catch(console.error);
 };

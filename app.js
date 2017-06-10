@@ -1,9 +1,10 @@
-'use strict';
 const Discord = require("discord.js");
 const client = new Discord.Client();
+
+if(process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or higher is required. Update Node on your system. If you ask me 'why doesn't your selfbot work' and I see this error I will slap you silly.");
+
 const config = require('./config.json');
-require('discord.js-aliases');
-const fs = require("fs-extra");
+const fs = require("fs");
 
 // Readline module test
 const readline = require('readline');
@@ -16,7 +17,6 @@ rl.on('line', input => {
   console.log(eval(input));
 });
 
-// Before using, rename `selfclient.sqlite.example` to `selfclient.sqlite`
 const db = require('sqlite');
 db.open('./selfbot.sqlite');
 
@@ -45,8 +45,6 @@ fs.readdir('./events/', (err, files) => {
   console.log(`Loading a total of ${files.length} events.`);
   files.forEach(file => {
     const eventName = file.split(".")[0];
-    // Forward slash (/) is also supported on Windows and required on some machines.
-    // Source: https://nodejs.org/api/path.html#path_path_sep
     const event = require(`./events/${file}`);
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./events/${file}`)];

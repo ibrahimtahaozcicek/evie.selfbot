@@ -10,7 +10,7 @@ exports.run = async (bot, msg, args) => {
     clean(command),
     "```",
   ];
-  const outMessage = await msg.channel.sendMessage(runningMessage);
+  const outMessage = await msg.channel.send(runningMessage);
   let stdOut = await doExec(command).catch(data=> outputErr(outMessage, data));
   stdOut = stdOut.substring(0, 1750);
   outMessage.edit(`\`OUTPUT\`

@@ -13,5 +13,4 @@ module.exports = async client => {
   } catch(O_o){}
   await wait(1000);
   client.log("log", "Bot Ready", client.user, `Ready to spy on ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} servers.`);
-  client.db.run("CREATE TABLE IF NOT EXISTS quotes(name TEXT PRIMARY KEY NOT NULL, message TEXT NOT NULL, channel TEXT NOT NULL, author TEXT NOT NULL, embed BLOB NOT NULL)");
 };

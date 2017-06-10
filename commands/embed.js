@@ -4,7 +4,7 @@ exports.run = function(bot, msg, args) {
   const embed = new Discord.RichEmbed()
     .setDescription(args.join(" "))
     .setColor([114, 137, 218]);
-  msg.channel.sendEmbed(embed);
+  msg.channel.send({embed});
 };
 
 exports.conf = {
