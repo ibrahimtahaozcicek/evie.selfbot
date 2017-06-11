@@ -18,11 +18,7 @@ rl.on('line', input => {
   console.log(eval(input));
 });
 
-const db = require('sqlite');
-db.open('./selfbot.sqlite');
-
 client.config = config;
-client.db = db;
 
 require("./modules/functions.js")(client);
 
