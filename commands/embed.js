@@ -16,6 +16,6 @@ exports.conf = {
 
 exports.help = {
   name: 'embed',
-  description: 'Bans the mentioned user.',
+  description: 'Embeds some text.',
   usage: '> Embed Text'
 };
