@@ -3,7 +3,6 @@ const fs = require("fs");
 module.exports = async client => {
   delete client.user.email;
   delete client.user.verified;
-  client.slashes.init(client);
   try {
     const { id: rebootMsgID , channel: rebootMsgChan} = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
     const m = await client.channels.get(rebootMsgChan).fetchMessage(rebootMsgID);

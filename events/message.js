@@ -9,9 +9,10 @@ module.exports = (client, message) => {
   const args = message.content.split(" ");
   const command = args.shift().slice(client.config.prefix.length);
 
-  let slash = client.slashes.get(command);
+  let slash = client.tags.get(command);
+  
   if(slash) {
-    message.edit(slash.contents);
+    message.edit(`${args.join(" ")}${slash}`);
     return;
   }
 

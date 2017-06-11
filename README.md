@@ -1,7 +1,7 @@
 # Evie.Selfbot
 
 You might know me from such things as [My YouTube Channel](https://www.youtube.com/channel/UCvQubaJPD0D-PSokbd5DAiw), 
-the [discord.js guide](https://yorkaargh.gitbooks.io/discord-js-bot-guide/) I handed over to York, my [Komada Framework](http://komada.js.org/), 
+the [discord.js guide](https://anidiotsguide.gitbooks.io/discord-js-bot-guide/) I handed over to York, my [Komada Framework](http://komada.js.org/), 
 my [Guardian bot](https://github.com/eslachance/guardian) or my [Dithcord Library](https://github.com/dirigeants/komada). 
 
 But now you can also enjoy the use of my personal selfbot! However, one caveat needs to be established:
@@ -59,3 +59,41 @@ For support join [〈evie.codes〉](https://discord.gg/PhT8scR) and talk to me, 
 
 Please see the [wiki on github](https://github.com/eslachance/evie.selfbot/wiki) for details on
 adding your own commands, events, etc.
+
+## UPDATING INFORMATION
+
+If relevant, updating to a new version here will indicate what you need to do.
+
+### UPDATING TO VERSION 1.2.0 (2017-06-11)
+
+I have *completely* overhauled the tag and "slashes" system into one using
+my new `djs-collection-persistent` which is just pure bliss. To update to the new
+system, *after* running `git pull` you'll need to run the following "eval" codes:
+
+```js
+/eval bot.db.all("SELECT * FROM shortcuts").then(rows => rows.forEach(r=>bot.tags.set(r.name, r.contents)))
+```
+
+You also need to copy the tags: 
+
+```js
+/eval bot.db.all("SELECT * FROM tags").then(rows => {
+  rows.forEach(r=> {
+    if(bot.tags.has(r.name)) r.name = r.name + "1";
+    bot.tags.set(r.name, r.contents)
+  })
+})
+```
+
+In the extremely rare circumstance where you might have already added stuff to
+the new `quote` system, run this eval: 
+
+```js
+/eval bot.db.all("SELECT * FROM quotes").then(rows => rows.forEach(r=>{
+  bot.quotes.set(r.name, {channel: r.channel, message: r.message, author: r.author, embed : r.embed})
+}))
+```
+
+That should be it. You'll now get the same result from `/tag name` and `/name`, 
+but now you can do `/lenny that was lewd` and it'll actually, like, output the
+message. So, go wild!
