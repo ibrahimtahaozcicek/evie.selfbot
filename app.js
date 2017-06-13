@@ -7,17 +7,6 @@ if(process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or hi
 const config = require('./config.json');
 const fs = require("fs");
 
-// Readline module test
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-rl.on('line', input => {
-  console.log(eval(input));
-});
-
 client.config = config;
 
 require("./modules/functions.js")(client);
@@ -27,6 +16,7 @@ client.quotes = new PersistentCollection({name: "quotes"});
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
+
 fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);
   console.log(`Loading a total of ${files.length} commands.`);
@@ -52,12 +42,3 @@ fs.readdir('./events/', (err, files) => {
 
 client.login(config.botToken);
 client.password = config.password;
-
-process.on('uncaughtException', (err) => {
-  let errorMsg = err.stack.replace(new RegExp(`${__dirname}\/`, 'g'), './');
-  console.error("Uncaught Exception: ", errorMsg);
-});
-
-process.on("unhandledRejection", err => {
-  console.error("Uncaught Promise Error: ", err);
-});

@@ -16,7 +16,6 @@ module.exports = (client, message) => {
     return;
   }
 
-  let perms = client.elevation(message);
   let cmd;
   if (client.commands.has(command)) {
     cmd = client.commands.get(command);
@@ -24,7 +23,6 @@ module.exports = (client, message) => {
     cmd = client.commands.get(client.aliases.get(command));
   }
   if (cmd) {
-    if (perms < cmd.conf.permLevel) return;
-    cmd.run(client, message, args, perms);
+    cmd.run(client, message, args);
   }
 };

@@ -9,8 +9,6 @@ module.exports = (client) => {
     return myArr;
   };
   
-  client.elevation = message => (message.author.id === client.user.id);
-  
   client.log = (type, title, author, msg) => {
     const logChannel = (type === "mention") ? client.channels.get(client.config.channels.mentions) : client.channels.get(client.config.channels.logs);
     if(!logChannel) return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
@@ -26,4 +24,24 @@ module.exports = (client) => {
     }});
   };
   
+  client.awaitReply = async (msg, question, limit = 60000) => {
+    const filter = m=>m.author.id = msg.author.id;
+    await msg.channel.send(question);
+    try {
+      const collected = await msg.channel.awaitMessages(filter, { max: 1, time: limit, errors: ['time'] });
+      return collected.first().content;
+    } catch(e) {
+      return false;
+    }
+  };
+  
+
+  process.on('uncaughtException', (err) => {
+    let errorMsg = err.stack.replace(new RegExp(`${__dirname}\/`, 'g'), './');
+    console.error("Uncaught Exception: ", errorMsg);
+  });
+  
+  process.on("unhandledRejection", err => {
+    console.error("Uncaught Promise Error: ", err);
+  });
 };
