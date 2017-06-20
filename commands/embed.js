@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-exports.run = function(bot, msg, args) {
+exports.run = (client, msg, args) => {
   msg.delete();
   const embed = new Discord.RichEmbed()
     .setDescription(args.join(" "))
@@ -10,8 +10,7 @@ exports.run = function(bot, msg, args) {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [">"],
-  permLevel: 0
+  aliases: [">"]
 };
 
 exports.help = {

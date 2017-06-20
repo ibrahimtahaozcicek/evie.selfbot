@@ -2,14 +2,14 @@ const Discord = require("discord.js");
 const moment = require("moment");
 require("moment-duration-format");
 
-exports.run = function(bot, msg, args) {
-    const duration = moment.duration(bot.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
+exports.run = (client, msg, args) => {
+    const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
     msg.channel.send(`= STATISTICS =
 • Mem Usage  :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
 • Uptime     :: ${duration}
-• Users      :: ${bot.users.size.toLocaleString()}
-• Servers    :: ${bot.guilds.size.toLocaleString()}
-• Channels   :: ${bot.channels.size.toLocaleString()}
+• Users      :: ${client.users.size.toLocaleString()}
+• Servers    :: ${client.guilds.size.toLocaleString()}
+• Channels   :: ${client.channels.size.toLocaleString()}
 • Discord.js :: v${Discord.version}
 • Node       :: ${process.version}`, {code: "asciidoc"});
 };

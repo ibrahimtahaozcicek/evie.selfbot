@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args) {
+exports.run = (bot, msg, args) => {
   let ban_id = args[0];
   let days = args[1];
   msg.guild.ban(ban_id, days)
@@ -9,8 +9,7 @@ exports.run = function(bot, msg, args) {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
-  permLevel: 0
+  aliases: []
 };
 
 exports.help = {

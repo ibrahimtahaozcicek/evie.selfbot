@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args) {
+exports.run = (client, msg, args) => {
     let statuses = {
       "online": "online",
       "on": "online",
@@ -19,7 +19,7 @@ exports.run = function(bot, msg, args) {
     if(status === "off") status = "invisible";
     if(status === "i") status = "invisible";
     if(status === "offline") status = "invisible";
-    bot.user.setStatus(status)
+    client.user.setStatus(status)
     .then(u=> {
       msg.edit(`Status changed to ${status}`).then(setTimeout(msg.delete.bind(msg), 1000));
     }).catch(e=> {

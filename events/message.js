@@ -10,11 +10,7 @@ module.exports = (client, message) => {
   const command = args.shift().slice(client.config.prefix.length);
 
   let slash = client.tags.get(command);
-  
-  if(slash) {
-    message.edit(`${args.join(" ")}${slash}`);
-    return;
-  }
+  if(slash) return message.edit(`${args.join(" ")} ${slash}`);
 
   let cmd;
   if (client.commands.has(command)) {

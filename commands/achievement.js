@@ -1,6 +1,6 @@
 const snekfetch = require('snekfetch');
 
-exports.run = (bot, msg, args) => {
+exports.run = (client, msg, args) => {
   let [title, contents] = args.join(" ").split("|");
   if(!contents) {
     [title, contents] = ["Achievement Get!", title];
@@ -21,8 +21,7 @@ exports.run = (bot, msg, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["mca"],
-  permLevel: 0
+  aliases: ["mca"]
 };
 
 exports.help = {

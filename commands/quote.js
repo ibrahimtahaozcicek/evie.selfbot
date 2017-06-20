@@ -5,8 +5,7 @@ exports.run = async (client, msg, args) => {
   if(!args[0].startsWith("-")) {
     const [name, ...message] = args;
     if(!client.quotes.has(name)) return returnMessage(msg, `The quote \`${name}\` does not exist. Use \`${client.config.prefix}quote -help\` for help.`, {deleteAfter:true});
-    const quote = JSON.parse(client.quotes.get(name));
-    console.log(quote.embed);
+    const quote = client.quotes.get(name);
     msg.channel.send(message.join(" "), {embed: JSON.parse(quote.embed)});
     return msg.delete();
   }

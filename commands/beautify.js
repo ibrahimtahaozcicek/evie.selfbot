@@ -1,4 +1,4 @@
-exports.run = async (bot, msg, args) => {
+exports.run = async (client, msg, args) => {
   let res;
   try {
     await msg.edit("Searching for code to beautify...");
@@ -12,8 +12,7 @@ exports.run = async (bot, msg, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["pretty"],
-  permLevel: 0
+  aliases: ["pretty"]
 };
 
 exports.help = {

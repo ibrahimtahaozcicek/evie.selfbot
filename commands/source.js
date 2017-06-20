@@ -1,5 +1,5 @@
-exports.run = function(bot, msg, args) {
-  const [replyTo, ...replyText] = args;
+exports.run = (client, msg, args) => {
+  const replyTo = args[0];
   msg.channel.fetchMessages({limit: 1, around: replyTo})
   .then(messages=> {
     const replyToMsg = messages.first();

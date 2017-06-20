@@ -1,4 +1,4 @@
-exports.run = function(bot, msg, args) {
+exports.run = (client, msg, args) => {
   const [replyTo, ...replyText] = args;
   msg.channel.fetchMessages({limit: 1, around: replyTo})
   .then(messages=> {

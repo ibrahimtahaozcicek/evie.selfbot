@@ -1,6 +1,4 @@
-/* BASE COMMAND EXAMPLE, MODIFY TO SUIT YOUR NEEDS */
-
-exports.run = (bot, msg, args) => {
+exports.run = (client, msg, args) => {
   const members = msg.guild.members.filter(member => member.user.presence.game && /(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(member.user.presence.game.name));
   return msg.channel.send(members.map(member => `\`${member.id}\` ${member.displayName}`).join("\n") || "Nobody has an invite link as game name.");
 };
@@ -8,8 +6,7 @@ exports.run = (bot, msg, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["ci"],
-  permLevel: 0
+  aliases: ["ci"]
 };
 
 exports.help = {

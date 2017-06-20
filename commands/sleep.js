@@ -1,9 +1,9 @@
 const moment = require("moment");
 
-exports.run = (bot, msg, [interval, period]) => {
+exports.run = (client, msg, [interval, period]) => {
   const timer = moment.duration(parseInt(interval, 10), period).asMilliseconds();
   console.log(timer);
-  bot.destroy();
+  client.destroy();
   setTimeout(()=>{
     process.exit(1);
   }, timer);

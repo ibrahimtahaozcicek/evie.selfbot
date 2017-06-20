@@ -1,6 +1,6 @@
 const exec = require("child_process").exec;
 
-exports.run = async (bot, msg, args) => {
+exports.run = async (client, msg, args) => {
   let command = args.join(" ");
   console.log(`Running ${command}`);
   
@@ -24,8 +24,7 @@ ${clean(stdOut)}
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
-  permLevel: 0
+  aliases: []
 };
 
 exports.help = {

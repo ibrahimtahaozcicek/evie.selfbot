@@ -33,8 +33,7 @@ exports.run = (client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['unmute'],
-  permLevel: 0
+  aliases: ['unmute']
 };
 
 exports.help = {
