@@ -23,6 +23,6 @@ exports.conf = {
 
 exports.help = {
   name: 'watch',
-  description: 'Example command to copy and modify',
+  description: 'Starts/Stops a watch on a channel. Logs all messages from that channel while running.',
   usage: 'watch <channelid>'
 };

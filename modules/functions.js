@@ -35,6 +35,14 @@ module.exports = (client) => {
     }
   };
   
+  
+  client.answer = (msg, contents, options = {}) => {
+    options.delay =  (options.delay || 1000);
+    options.deleteAfter = (options.deleteAfter || false);
+    msg.edit(contents);
+    if(options.deleteAfter) msg.delete({timeout: options.delay});
+  };
+  
 
   process.on('uncaughtException', (err) => {
     let errorMsg = err.stack.replace(new RegExp(`${__dirname}\/`, 'g'), './');

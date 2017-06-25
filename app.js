@@ -13,6 +13,7 @@ require("./modules/functions.js")(client);
 
 client.tags = new PersistentCollection({name: "tags"});
 client.quotes = new PersistentCollection({name: "quotes"});
+client.pages = new PersistentCollection({name: "guidepages"});
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
