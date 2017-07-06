@@ -34,15 +34,28 @@ module.exports = (client) => {
       return false;
     }
   };
-  
-  
+
   client.answer = (msg, contents, options = {}) => {
-    options.delay =  (options.delay || 1000);
+    options.delay =  (options.delay || 2000);
+    if(msg.flags.includes("delme")) options.deleteAfter = true;
     options.deleteAfter = (options.deleteAfter || false);
     msg.edit(contents);
     if(options.deleteAfter) msg.delete({timeout: options.delay});
   };
   
+  client.clean = async (text) => {
+    if (text && text.constructor.name == 'Promise')
+      text = await text;
+    if (typeof evaled !== 'string')
+      text = require('util').inspect(text, {depth: 0});
+    
+    text = text
+      .replace(/`/g, "`" + String.fromCharCode(8203))
+      .replace(/@/g, "@" + String.fromCharCode(8203))
+      .replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
+    
+    return text;
+  };
 
   process.on('uncaughtException', (err) => {
     let errorMsg = err.stack.replace(new RegExp(`${__dirname}\/`, 'g'), './');

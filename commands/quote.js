@@ -2,7 +2,7 @@ exports.run = async (client, msg, args) => {
   if(!args.length) return msg.edit(`Try with arguments, you sexy person you.`).then(msg.delete(1000));
   
   
-  if(!args[0].startsWith("-")) {
+  if(!msg.flags.length) {
     const [name, ...message] = args;
     if(!client.quotes.has(name)) return returnMessage(msg, `The quote \`${name}\` does not exist. Use \`${client.config.prefix}quote -help\` for help.`, {deleteAfter:true});
     const quote = client.quotes.get(name);
@@ -10,10 +10,9 @@ exports.run = async (client, msg, args) => {
     return msg.delete();
   }
   
-  const action = args[0].slice(1);
   const [name, ...extra] = args.slice(1);
   
-  switch (action) {
+  switch(msg.flags[0]) {
     case ("add") :
       if(client.quotes.has(name)) return returnMessage(msg, `The quote \`${name}\` already exist.`, {deleteAfter:true});
       try{
@@ -40,28 +39,17 @@ exports.run = async (client, msg, args) => {
         returnMessage(msg, `The new quote \`${name}\` was added to the database.`, {deleteAfter:true});
       } catch(e) {console.log("error: ", e)}
       break;
-
     case ("del") :
       if(!client.quotes.has(name)) return returnMessage(msg, `The quote \`${name}\` does not exist. Use \`${client.config.prefix}tags -list\``, {deleteAfter:true});
       client.quotes.delete(name);
       returnMessage(msg, `The quote \`${name}\` has been deleted`, {deleteAfter:true});
       break;
     case ("list") :
-      const options = (extra[0] === "del" ? {deleteAfter: true, delay: 10000} : {deleteAfter : false});
-      returnMessage(msg, "```\n" + client.quotes.map((s,k) =>k).join(", ") + "\n```", options);
+      returnMessage(msg, "```\n" + client.quotes.map((s,k) =>k).join(", ") + "\n```");
       break;
     case ("help") :
     default:
-      const optionsHelp = (extra[0] === "del" ? {deleteAfter: true, delay: 5000} : {deleteAfter : false});
-      let message = `\`\`\`xl
-${client.config.prefix}quote -add QuoteName ChannelID||here MessageID||last
-${client.config.prefix}quote -del QuoteName
-${client.config.prefix}quote -list
-
-Yeah yeah I'll make this a fancy embed, one day.
-\`\`\`
-\`This message will self-destruct in 5 seconds\``;
-      returnMessage(msg, message, optionsHelp);
+      returnMessage(msg, this.help.extended);
       break;
   }
 };
@@ -84,5 +72,10 @@ exports.conf = {
 exports.help = {
   name: 'quote',
   description: 'Saves or recalls a quote from someone (this requires extended help, see wiki)',
-  usage: 'quote [options]'
+  usage: 'quote [options]',
+  extended: `\`\`\`xl
+-add QuoteName ChannelID||here MessageID||last
+-del QuoteName
+-list
+\`\`\``
 };

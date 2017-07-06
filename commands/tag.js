@@ -1,17 +1,16 @@
 exports.run = (client, msg, args) => {
-
-  if(!args[0].startsWith("-")) {
+  if(!args[0] && !msg.flags.length) msg.flags.push("list");
+  
+  if(!msg.flags.length) {
     const [name, ...message] = args;
     if(!client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -help\` for help.`, {deleteAfter:true});
     const tag = client.tags.get(name);
-    console.log(tag);
     return client.answer(msg, `${message.join(" ")}${tag}`);
   }
+
+  const [name, ...extra] = args;
   
-  const action = args[0].slice(1);
-  const [name, ...extra] = args.slice(1);
-  
-  switch(action) {
+  switch(msg.flags[0]) {
     case ("add") :
       if(client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` already exist.`, {deleteAfter:true});
       client.tags.set(name, extra.join(" "));
@@ -29,22 +28,11 @@ exports.run = (client, msg, args) => {
       client.tags.set(name, tag);
       break;
     case ("list") :
-      const options = (extra[0] === "del" ? {deleteAfter: true, delay: 10000} : {deleteAfter : false});
-      client.answer(msg, "```\n" + client.tags.map((s,k) =>k).join(", ") + "\n```", options);
+      client.answer(msg, "```\n" + client.tags.map((s,k) =>k).join(", ") + "\n```");
       break;
     case ("help") :
     default:
-      const optionsHelp = (extra[0] === "del" ? {deleteAfter: true, delay: 5000} : {deleteAfter : false});
-      let message = `\`\`\`xl
--add newTagName This is your new tag contents
--del tagName
--edit existingtagName This is new new edited contents
--list
-
-Yeah yeah I'll make this a fancy embed, one day.
-\`\`\`
-\`This message will self-destruct in 5 seconds\``;
-      client.answer(msg, message, optionsHelp);
+      client.answer(msg, this.help.extended);
       break;
   }
 };
@@ -52,12 +40,18 @@ Yeah yeah I'll make this a fancy embed, one day.
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ["tags"],
   permLevel: 0
 };
 
 exports.help = {
   name: 'tag',
   description: 'Show or modify tags.',
-  usage: 'tag <action> [tagname] <contents> (use -help action to show additional help)'
+  usage: 'tag <action> [tagname] <contents> (use -help action to show additional help)',
+  extended: `\`\`\`
+-add newTagName This is your new tag contents
+-del tagName
+-edit existingtagName This is new new edited contents
+-list
+\`\`\``
 };

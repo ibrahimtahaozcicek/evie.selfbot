@@ -1,6 +1,7 @@
+const { promisify } = require("util");
+
 exports.run = async (client, msg, args) => {
-  const response = await client.awaitReply(msg, "Can y'all handle this?");
-  msg.channel.send(response+"\nDon't funk with my heart!");
+  //
 };
 
 
