@@ -22,6 +22,7 @@ fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);
   console.log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
+    if(f.split(".").slice(-1)[0] !== ".js") return;
     let props = require(`./commands/${f}`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
