@@ -11,7 +11,6 @@ client.config = config;
 
 require("./modules/functions.js")(client);
 
-client.tags = new PersistentCollection({name: "tags"});
 client.quotes = new PersistentCollection({name: "quotes"});
 client.pages = new PersistentCollection({name: "guidepages"});
 
@@ -24,6 +23,7 @@ fs.readdir('./commands/', (err, files) => {
   files.forEach(f => {
     let props = require(`./commands/${f}`);
     client.commands.set(props.help.name, props);
+    if(props.init) props.init(client);
     props.conf.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
     });

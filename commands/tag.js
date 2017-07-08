@@ -1,41 +1,26 @@
-exports.run = (client, msg, args) => {
+const PCClass = require('../modules/PCClass.js');
+
+exports.run = async (client, msg, args) => {
   if(!args[0] && !msg.flags.length) msg.flags.push("list");
-  
+
   if(!msg.flags.length) {
     const [name, ...message] = args;
-    if(!client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -help\` for help.`, {deleteAfter:true});
-    const tag = client.tags.get(name);
+    if(!this.db.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -help\` for help.`, {deleteAfter:true});
+    const tag = this.db.get(name);
     return client.answer(msg, `${message.join(" ")}${tag}`);
   }
 
   const [name, ...extra] = args;
-  
-  switch(msg.flags[0]) {
-    case ("add") :
-      if(client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` already exist.`, {deleteAfter:true});
-      client.tags.set(name, extra.join(" "));
-      client.answer(msg, `The new tag \`${name}\` was added to the database.`, {deleteAfter:true});
-      break;
-    case ("del") :
-      if(!client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -list\``, {deleteAfter:true});
-      client.tags.delete(name);
-      client.answer(msg, `The tag \`${name}\` has been deleted`, {deleteAfter:true});
-      break;
-    case ("edit") :
-      if(!client.tags.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -list\``, {deleteAfter:true});
-      const tag = client.tags.get(name);
-      tag.contents = extra;
-      client.tags.set(name, tag);
-      break;
-    case ("list") :
-      client.answer(msg, "```\n" + client.tags.map((s,k) =>k).join(", ") + "\n```");
-      break;
-    case ("help") :
-    default:
-      client.answer(msg, this.help.extended);
-      break;
-  }
+  data = {contents: extra.join(" ")};
+  let response = await this.db[msg.flags[0]](name, data);
+  client.answer(msg, response, {deleteAfter:true});
 };
+
+exports.init = client => {
+  this.db = new PCClass(client, "tags");
+  this.db.extendedHelp = this.help.extended;
+  client.tags = this.db;
+}
 
 exports.conf = {
   enabled: true,

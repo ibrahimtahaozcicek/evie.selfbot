@@ -5,22 +5,7 @@ module.exports = async (client, message) => {
   if(message.isMentioned(client.user.id) || message.mentions.everyone || (message.guild && message.mentions.roles.filter(r=>message.guild.member(client.user.id).roles.has(r.id)).size > 0)) {
   client.log("mention", `${message.guild.name} #${message.channel.name}`, message.author, message.content);
   }
-  
-  /* TEMPORARY PSA SHIT
-  if(message.content.includes("Discord is suppose to be closing down") && message.content.includes("11pm") && message.content.includes("SORRY FOR THE INCONVENIENCE")) {
-    if(message.author.bot) return;
-    await wait(1500);
-    message.delete().catch(O_o=>{});
-    if(~warned.indexOf(message.author.id)) return;
-    message.channel.startTyping();
-    warned.push(message.author.id);
-    await wait(3000);
-    let m = await message.reply(" this PSA is false. Discord is not closing down, that would be ridiculous. Please stop spreading this, and let everyone know it's faek.");
-    await wait(1000);
-    m.edit(m.content.replace("faek", "fake"));
-    message.channel.stopTyping();
-  } */
-  
+
   if(message.author.id !== client.user.id) return;
   if(message.content.indexOf(client.config.prefix) !== 0) return;
 
