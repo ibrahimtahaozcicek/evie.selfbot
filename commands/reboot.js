@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
   await write('./reboot.json', `{"id": "${msg.id}", "channel": "${msg.channel.id}"}`).catch(console.error);
   await client.tags.close();
   await client.quotes.close();
-  await client.pages.close();
+  await client.guides.close();
   process.exit(1);
 };
 

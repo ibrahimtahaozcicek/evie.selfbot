@@ -1,7 +1,5 @@
-const { promisify } = require("util");
-
 exports.run = async (client, msg, args) => {
-  //
+  // Insert Test Here
 };
 
 
