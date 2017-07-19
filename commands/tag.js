@@ -1,4 +1,3 @@
-const PCClass = require('../modules/PCClass.js');
 
 exports.run = async (client, msg, args) => {
   if(!args[0] && !msg.flags.length) msg.flags.push("list");
@@ -11,16 +10,25 @@ exports.run = async (client, msg, args) => {
   }
 
   const [name, ...extra] = args;
-  data = {contents: extra.join(" ")};
-  let response = await this.db[msg.flags[0]](name, data);
+  
+  let data = null;
+  switch(msg.flags[0]) {
+    case ("add") :
+      data = {contents: extra.join(" ")};
+      break;
+    default :
+      data = extra.join(" ");
+  }
+
+  const response = await this.db[msg.flags[0]](name, data);
   client.answer(msg, response, {deleteAfter:true});
 };
 
 exports.init = client => {
-  this.db = new PCClass(client, "tags");
+  this.db = new client.db(client, "tags");
   this.db.extendedHelp = this.help.extended;
   client.tags = this.db;
-}
+};
 
 exports.conf = {
   enabled: true,

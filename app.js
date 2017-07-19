@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const PersistentCollection = require("djs-collection-persistent");
 
 if(process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or higher is required. Update Node on your system. If you ask me 'why doesn't your selfbot work' and I see this error I will slap you silly.");
 
@@ -10,9 +9,7 @@ const fs = require("fs");
 client.config = config;
 
 require("./modules/functions.js")(client);
-
-client.quotes = new PersistentCollection({name: "quotes"});
-client.pages = new PersistentCollection({name: "guidepages"});
+client.db = require("./modules/PersistentDB.js");
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -21,6 +18,7 @@ fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);
   console.log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
+    if(f.split(".").slice(-1)[0] !== "js") return;
     let props = require(`./commands/${f}`);
     client.commands.set(props.help.name, props);
     if(props.init) props.init(client);

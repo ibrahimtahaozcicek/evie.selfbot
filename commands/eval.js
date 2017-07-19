@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 exports.run = async (client, msg, args) => {
   const code = args.join(" ");
   try {
-      const evaled = await client.clean(eval(code));
+      const evaled = client.clean(await eval(code));
       msg.channel.send(`\`\`\`xl\n${evaled}\n\`\`\``
       );
   }

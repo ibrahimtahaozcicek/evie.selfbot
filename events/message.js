@@ -3,7 +3,8 @@ const warned = [];
 
 module.exports = async (client, message) => {
   if(message.isMentioned(client.user.id) || message.mentions.everyone || (message.guild && message.mentions.roles.filter(r=>message.guild.member(client.user.id).roles.has(r.id)).size > 0)) {
-  client.log("mention", `${message.guild.name} #${message.channel.name}`, message.author, message.content);
+    const chan = !!message.guild ? `${message.guild.name} #${message.channel.name}` : "";
+    client.log("mention", chan, message.author, message.cleanContent);
   }
 
   if(message.author.id !== client.user.id) return;

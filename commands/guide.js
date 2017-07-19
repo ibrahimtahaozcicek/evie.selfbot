@@ -12,51 +12,38 @@ Want all the pages? run this:
 
 exports.run = async (client, msg, args) => {
   if(!args[0]) args[0] = "home";
+  
   if(!msg.flags.length) {
     let name = args[0];
-    if(!client.pages.has(name)) name = "home";
-    const details = client.pages.get(name);
+    if(!this.db.has(name)) name = "home";
+    const details = this.db.get(name);
     return client.answer(msg, `${details.snippet}\n**Read More**: <${baseUrl}${details.url}>`);
   }
   
   const [name, ...extra] = args.slice(1);
-
+  
+  let data = null;
   switch(msg.flags[0]) {
     case ("add") :
       const [url, ...snippet] = extra;
-      if(client.pages.has(name)) return client.answer(msg, `The page name \`${name}\` already exist.`, {deleteAfter: true, delay: 5000});
       if(name.indexOf("/") == 0) return client.answer(msg, "You seem to have forgotten a tag name...", {deleteAfter: true, delay: 5000});
       if(url.indexOf("/") !== 0) return client.answer(msg, "URL is absolute and must start with `/`", {deleteAfter: true, delay: 5000});
       if(!snippet) return client.answer(msg, "You seem to have forgotten a tag name...", {deleteAfter: true, delay: 5000});
-      client.pages.set(name, {url, snippet});
-      client.answer(msg, `The page name \`${name}\` was added to the guide list.\n**URL**: \`${url}\`\n**Snippet**: ${snippet.join(" ")}`, {deleteAfter:false});
+      data = {url, snippet};
       break;
-    case ("edit") :
-      if(!client.pages.has(name)) return client.answer(msg, `The page name \`${name}\` does not exist. Use \`${client.config.prefix}guide -list\``);
-      const page = client.pages.get(name);
-      page.snippet = extra.join(" ");
-      client.pages.set(name, page);
-      client.answer(msg, `The snippet for page name \`${name}\` has been modified succesfully`, {deleteAfter:true});
-      break;
-    case ("import") :
-      const pageData = await require("snekfetch").get(name);
-      Object.entries(JSON.parse(pageData.text)).forEach(
-        ([key, value]) => client.pages.set(key, value)
-      );
-      break;
-    case ("export") :
-      const pageExport = {};
-      client.pages.forEach((s,p)=> {
-          s = JSON.parse(s);
-        pageExport[p] = {url: s.url, snippet: s.snippet};
-      });
-
-      const hasteURL = await require("snekfetch")
-        .post("http://how.evie-banned.me/documents")
-        .send(pageExport);
-      client.answer(msg, `http://how.evie-banned.me/${hasteURL.body.key}.json`);
-      break;
+    default :
+      data = extra.join(" ");
   }
+  
+  const response = await this.db[msg.flags[0]](name, data);
+  client.answer(msg, response, {deleteAfter:true});
+  
+};
+
+exports.init = client => {
+  this.db = new client.db(client, "guides");
+  this.db.extendedHelp = this.help.extended;
+  client.guides = this.db;
 };
 
 exports.conf = {

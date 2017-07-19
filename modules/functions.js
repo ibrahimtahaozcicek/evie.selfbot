@@ -1,5 +1,7 @@
+const { promisify, inspect } = require('util');
+
 module.exports = (client) => {
-  global.wait = require('util').promisify(setTimeout);
+  global.wait = promisify(setTimeout);
 
   global.range = (count, start = 0) => {
     const myArr = [];
@@ -43,10 +45,10 @@ module.exports = (client) => {
     if(options.deleteAfter) msg.delete({timeout: options.delay});
   };
   
-  client.clean = async (text) => {
-    text = await text;
+  client.clean = (text) => {
     if (typeof text !== 'string')
-      text = require('util').inspect(text, {depth: 0})
+      text = inspect(text, {depth: 0})
+    text = text
         .replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203))
         .replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
