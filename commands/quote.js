@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
     const [name, ...message] = args;
     if(!client.quotes.has(name)) return client.answer(msg, `The quote \`${name}\` does not exist. Use \`${client.config.prefix}quote -help\` for help.`, {deleteAfter:true});
     const quote = client.quotes.get(name);
-    msg.channel.send(message.join(" "), {embed: JSON.parse(quote.embed)});
+    msg.channel.send(message.join(" "), {embed: quote.embed});
     return msg.delete();
   }
   
@@ -15,10 +15,10 @@ exports.run = async (client, msg, args) => {
   switch(msg.flags[0]) {
     case ("add") :
       try{
-        const channel = (extra[0] && extra[0] == "here" ? msg.channel : client.channels.get(extra[0]));
+        const channel =( extra[0] && extra[0]) == "here" ? msg.channel : client.channels.get(extra[0]);
         if(!channel) return client.answer(msg, `Channel ID (argument 2) does not exist or was not provided.`, {deleteAfter:true});
         
-        let message = args[1] === "last" ? msg.channel.messages.last(2)[0] : await channel.fetchMessage(args[1]);
+        let message = extra[1] === "last" ? msg.channel.messages.last(2)[0] : await channel.fetchMessage(extra[1]);
         if(!message.id) return client.answer(msg, `Message ID (argument 3) doesn't seem to exist or was not provided.`, {deleteAfter:true});
         
         const embed = {
