@@ -63,6 +63,28 @@ adding your own commands, events, etc.
 
 If relevant, updating to a new version here will indicate what you need to do.
 
+
+### UPDATING TO VERSION 1.2.1 (2017-07-24)
+
+There was a change in the way that the tags, quotes and guide commands work.
+These commands are now class-based (a nice exercise you can see me 
+execute [on twitch in a livestream](https://www.twitch.tv/videos/157386582)). 
+This required some tweak of the commands, but most notably the `tags` command
+now has a slightly different storage format. Yes. Again. 
+Fear not, running the following eval command will most definitely make your
+tags continue to work with this new update!
+
+
+```
+/eval client.tags.forEach( (t,k) => {
+  try { JSON.parse(t) } catch(e) { client.tags.set(k, {"contents" : t}) }
+});
+```
+
+> Remember that if you've made modifications of your local files, you might
+not have all the updated files using `git pull`. But, that's up to you to fix!
+
+
 ### UPDATING TO VERSION 1.2.0 (2017-06-11)
 
 I have *completely* overhauled the tag and "slashes" system into one using
