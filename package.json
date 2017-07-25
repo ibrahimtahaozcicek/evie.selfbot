@@ -1,6 +1,6 @@
 {
   "name": "evie.selfbot",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A selfbot written in Discord.js v9",
   "main": "app.js",
   "scripts": {
