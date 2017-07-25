@@ -35,8 +35,15 @@ exports.run = async (client, msg, args) => {
       data = extra.join(" ");
   }
   
-  const response = await this.db[msg.flags[0]](name, data);
-  client.answer(msg, response, {deleteAfter:true});
+  try {
+    const response = await this.db[msg.flags[0]](name, data);
+    const deleteAfter = msg.flags[0] == "list" ? false : true;
+    client.answer(msg, response, {deleteAfter});
+  } catch (e) {
+    if(e.constructor.name === "TypeError") e = e.message;
+    client.answer(msg, e, {deleteAfter: false, delay: 5000});
+  }
+
   
 };
 

@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
   if(!msg.flags.length) {
     const [name, ...message] = args;
     if(!this.db.has(name)) return client.answer(msg, `The tag \`${name}\` does not exist. Use \`${client.config.prefix}tags -help\` for help.`, {deleteAfter:true});
-    const tag = this.db.get(name);
+    const tag = this.db.get(name).contents;
     return client.answer(msg, `${message.join(" ")}${tag}`);
   }
 
@@ -20,8 +20,14 @@ exports.run = async (client, msg, args) => {
       data = extra.join(" ");
   }
 
-  const response = await this.db[msg.flags[0]](name, data);
-  client.answer(msg, response, {deleteAfter:true});
+  try {
+    const response = await this.db[msg.flags[0]](name, data);
+    const deleteAfter = msg.flags[0] == "list" ? false : true;
+    client.answer(msg, response, {deleteAfter});
+  } catch (e) {
+    if(e.constructor.name === "TypeError") e = e.message;
+    client.answer(msg, e, {deleteAfter: false, delay: 5000});
+  }
 };
 
 exports.init = client => {

@@ -8,11 +8,15 @@ exports.run = async (client, msg, args) => {
     command = client.commands.get(client.aliases.get(args[0]));
   }
   if(!command) return msg.edit(`The command \`${args[0]}\` doesn't seem to exist, nor is it an alias. Try again!`).then(setTimeout(msg.delete.bind(msg), 1000));
+
+  if(command.db) await command.db.close();
+
   command = command.help.name;
 
   delete require.cache[require.resolve(`./${command}.js`)];
   let cmd = require(`./${command}`);
   client.commands.delete(command);
+  if(cmd.init) cmd.init(client);
   client.aliases.forEach((cmd, alias) => {
     if (cmd === command) client.aliases.delete(alias);
   });

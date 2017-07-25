@@ -21,6 +21,6 @@ module.exports = async (client, message) => {
     }
     cmd.run(client, message, args);
   } else if(client.tags.has(command)) {
-    message.edit(`${args.join(" ")} ${client.tags.get(command)}`);
+    message.edit(`${args.join(" ")} ${client.tags.get(command).contents}`);
   }
 };
