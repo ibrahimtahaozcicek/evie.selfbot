@@ -1,7 +1,7 @@
 {
   "name": "evie.selfbot",
   "version": "1.2.1",
-  "description": "A selfbot written in Discord.js v9",
+  "description": "Evie's Famous Homemade Selfbot",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
