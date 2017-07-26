@@ -10,7 +10,7 @@ module.exports = async (client, message) => {
   if(message.author.id !== client.user.id) return;
   if(message.content.indexOf(client.config.prefix) !== 0) return;
 
-  const args = message.content.split(/\s+/g);
+  const args = message.content.split(/ +/g);
   const command = args.shift().slice(client.config.prefix.length).toLowerCase();
 
   const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
