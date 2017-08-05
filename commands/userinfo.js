@@ -12,8 +12,12 @@ exports.run = (client, msg, args) => {
   const member = msg.mentions.members.first() || msg.guild.members.get(args[0]) || msg.member;
   if (!member) return msg.reply("Please provide a vaild Mention or USER ID");
   let bot;
-  if (member.user.bot === true) bot = "Yes";
-  else bot = "No";
+  if (member.user.bot === true) {
+    bot = "Yes";
+  } else {
+    bot = "No";
+  };
+
 
 
   const embed = new Discord.MessageEmbed()
