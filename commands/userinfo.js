@@ -16,10 +16,7 @@ exports.run = (client, msg, args) => {
     bot = "Yes";
   } else {
     bot = "No";
-  };
-
-
-
+  }
   const embed = new Discord.MessageEmbed()
     .setColor(randomColor)
     .setThumbnail(`${member.user.displayAvatarURL()}`)
