@@ -3,11 +3,9 @@ node_modules
 .c9
 .DS_Store
 Thumbs.db
-runfiles/
 config.json
-selfbot.sqlite
-*.heapsnapshot
 data/
+bwd/
 
 # C/C++
 *.slo

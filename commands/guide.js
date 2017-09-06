@@ -20,7 +20,7 @@ exports.run = async (client, msg, args) => {
     return client.answer(msg, `${details.snippet}\n**Read More**: <${baseUrl}${details.url}>`);
   }
   
-  const [name, ...extra] = args.slice(1);
+  let [name, ...extra] = args;
   
   let data = null;
   switch(msg.flags[0]) {

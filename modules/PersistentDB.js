@@ -1,8 +1,8 @@
-const PersistentCollection = require("djs-collection-persistent");
+const Enmap = require("enmap");
 
-class PersistentDB extends PersistentCollection {
+class PersistentDB extends Enmap {
   constructor(client, PCName, editable = "contents") {
-    super({name: PCName});
+    super({name: PCName, persistent: true});
     this.client = client;
     this.type = PCName.toLowerCase().slice(0, -1);
     this.editable = editable;
@@ -25,6 +25,7 @@ class PersistentDB extends PersistentCollection {
   }
 
   rename(oldName, newName) {
+    console.log(oldName, newName);
     if(!this.has(oldName))
       throw `The ${this.type} \`${oldName}\` does not exist.`;
     const entry = this.get(oldName);

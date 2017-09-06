@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
   await write('./reboot.json', `{"id": "${msg.id}", "channel": "${msg.channel.id}"}`).catch(console.error);
   const commandUnloads = client.commands.filter(c=>!!c.db).array();
   for(const c of commandUnloads) {
-    await c.db.close();
+    await c.close();
   }
   process.exit(1);
 };

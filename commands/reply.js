@@ -7,7 +7,7 @@ exports.run = (client, msg, args) => {
       color: 3447003,
       author: {
         name: `${replyToMsg.author.username} (${replyToMsg.author.id})`,
-        icon_url: replyToMsg.author.avatarURL
+        icon_url: replyToMsg.author.avatarURL()
       },
       description: replyToMsg.content
     }})
