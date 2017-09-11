@@ -1,18 +1,16 @@
-exports.run = (client, msg, args) => {
+exports.run = async (client, msg, args) => {
   const [replyTo, ...replyText] = args;
-  msg.channel.fetchMessages({limit: 1, around: replyTo})
-  .then(messages=> {
-    const replyToMsg = messages.first();
-    msg.channel.send(replyText.join(" "), {embed: {
-      color: 3447003,
-      author: {
-        name: `${replyToMsg.author.username} (${replyToMsg.author.id})`,
-        icon_url: replyToMsg.author.avatarURL()
-      },
-      description: replyToMsg.content
-    }})
-    .then(() => msg.delete());
-  }).catch(console.error);
+  const messages = await msg.channel.messages.fetch({limit: 1, around: replyTo});
+  const replyToMsg = messages.first();
+  msg.channel.send(replyText.join(" "), {embed: {
+    color: 3447003,
+    author: {
+      name: `${replyToMsg.author.username} (${replyToMsg.author.id})`,
+      icon_url: replyToMsg.author.avatarURL()
+    },
+    description: replyToMsg.content
+  }})
+  .then(() => msg.delete());
 };
 
 exports.conf = {

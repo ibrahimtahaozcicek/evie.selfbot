@@ -5,7 +5,7 @@ module.exports = async client => {
   delete client.user.verified;
   try {
     const { id: rebootMsgID , channel: rebootMsgChan} = JSON.parse(fs.readFileSync('./reboot.json', 'utf8'));
-    const m = await client.channels.get(rebootMsgChan).fetchMessage(rebootMsgID);
+    const m = await client.channels.get(rebootMsgChan).messages.fetch(rebootMsgID);
     await m.edit('Rebooted!');
     await m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`);
     fs.unlink('./reboot.json', ()=>{});

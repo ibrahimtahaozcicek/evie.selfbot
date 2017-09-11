@@ -9,7 +9,7 @@
   "author": "Evelyne Lachance <me@evie.codes>",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "github:hydrabolt/discord.js#master",
+    "discord.js": "github:hydrabolt/discord.js",
     "djs-collection-persistent": "^0.1.1",
     "enmap": "^0.1.1",
     "fs-nextra": "^0.1.1",
