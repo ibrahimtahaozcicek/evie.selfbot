@@ -1,4 +1,12 @@
+const { WebhookClient } = require("discord.js");
 const { promisify, inspect } = require('util');
+
+const embedColors = {
+  mention: 3447003,
+  error: 16711680,
+  log: 16761676,
+  warn: 14408465
+}
 
 module.exports = (client) => {
   global.wait = promisify(setTimeout);
@@ -12,16 +20,16 @@ module.exports = (client) => {
   };
   
   client.log = (type, title, author, msg) => {
-    const logChannel = (type === "mention") ? client.channels.get(client.config.channels.mentions) : client.channels.get(client.config.channels.logs);
-    if(!logChannel) return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
-    logChannel.send({embed: {
-      color: 3447003,
+    const hook = new WebhookClient(client.config.webhook.id, client.config.webhook.token);
+    if(!hook)  return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
+    const color = embedColors[type] || 3447003;
+    hook.send({embed: {
+      color,
       author: {
         name: `${author.username} (${author.id})`,
         icon_url: author.avatarURL()
       },
       title: title,
-      url: '',
       description: msg
     }});
   };

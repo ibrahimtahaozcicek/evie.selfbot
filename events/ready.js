@@ -10,6 +10,6 @@ module.exports = async client => {
     await m.edit(`Rebooted! (took: \`${m.editedTimestamp - m.createdTimestamp}ms\`)`);
     fs.unlink('./reboot.json', ()=>{});
   } catch(O_o){}
-  await wait(1000);
+  await wait(2000);
   client.log("log", "Bot Ready", client.user, `Ready to spy on ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} servers.`);
 };
