@@ -1,25 +1,26 @@
 # Evie.Selfbot
 
 You might know me from such things as [My YouTube Channel](https://www.youtube.com/channel/UCvQubaJPD0D-PSokbd5DAiw), 
-the [discord.js guide](https://anidiotsguide.gitbooks.io/discord-js-bot-guide/) I handed over to York, my [Komada Framework](http://komada.js.org/), 
-my [Guardian bot](https://github.com/eslachance/guardian) or my [Dithcord Library](https://github.com/dirigeants/komada). 
+the [discord.js guide](https://anidiots.guide/) I handed over to York, my [Komada Framework](http://komada.js.org/), 
+my [Guardian bot](https://github.com/eslachance/guardian) or my [Dithcord Library](https://github.com/eslachance/dithcord). 
 
 But now you can also enjoy the use of my personal selfbot! However, one caveat needs to be established:
 
 > USING SELFBOTS IS [AGAINST THE DISCORD TERMS OF SERVICE](https://discordapp.com/developers/docs/topics/oauth2). I AM NOT RESPONSIBLE AND CANNOT BE HELD LIABLE IF YOU LOSE PRIVILEGES, GET KICKED OR BANNED FROM ANY SERVER OR FROM DISCORD.
 > So why does this still exist? Because we're all rebels and we like taking risks in order to get cool stuff.
 
-Also, an important point is: this requires *some* knowledge of javascript and your operating system to be able to use. If you don't know JavaScript, you're going to have a bad time.
-
-Evie.Selfbot is built using the [Discord.js](http://discord.js.org/) library version 11.x, which is installed automatically when running `npm install` as per the install steps below.
+Oh and also: This is my personal selfbot code, and though I put it online with this nice readme 
+for you to install and use it, I can't cater to other people's requests or desires. I update
+this when I feel like it with the features I want and I make breaking changes without 
+consideration for other people's installations.
 
 ## Requirements
 
 - `git` command line ([Windows](https://git-scm.com/download/win)|[Linux](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)|[MacOS](https://git-scm.com/download/mac)) installed
-- `node` [Version 8.0.0 or higher](https://nodejs.org)
-- `a machine` to host it on. Want it to be online 24/7? Get a VPS.
+- `node` [Version 8.4.0 or higher](https://nodejs.org)
+- `a machine` to host it on. Want it to be online 24/7? Get a VPS. I suggest [OVH](http://ovh.com/) (no there are no good free hosts).
 - `some goddamn sense` If you don't intend to read the rest of this document, you shouldn't bother using this selfbot.
-- `some knowledge of node` because I'm not there to handhold you.
+- `some knowledge of node and javascript` because I'm not there to handhold you.
 
 ## Downloading
 
@@ -57,8 +58,6 @@ Once finished:
 
 To start the selfbot, in the command prompt, run the following command:
 `node app.js`
-
-> If you get an error about SQLite not being available or not building, run `npm rebuild` and run the bot again.
 
 > If at any point it says "cannot find module X" just run `npm install X` and try again.
 
