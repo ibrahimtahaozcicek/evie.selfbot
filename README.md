@@ -32,7 +32,16 @@ Once finished:
 - Rename `config.json.example` to `config.json`
 - Edit `config.json` and enter your token and other details as indicated. It should look like this afterwards: 
 
-![](http://i.imgur.com/KH2ELvM.png)
+```json
+{
+  "botToken": "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0",
+  "webhook": {
+    "id": "123456789123456789",
+    "token": "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0"
+  },
+  "prefix": "/"
+}
+```
 
 ## Getting your login token
 
@@ -62,6 +71,26 @@ adding your own commands, events, etc.
 ## UPDATING INFORMATION
 
 If relevant, updating to a new version here will indicate what you need to do.
+
+### UPDATING TO VERSION 2.0.0 (2017-09-12)
+
+Eh why not bump a version, I feel like it. 
+
+I've changed the logging feature to use a webhook instead of a channel output.
+The reason for this is that it will actually notify the user if a mention is made,
+or if the bot encounters an error or reboots, etc. Basically any log you send.
+
+The code is almost identical, except that you need to change the config.json to
+reflect it: a single channel is used, you just need to provide a webhook ID
+and Token to get started (see example config above).
+
+I've also removed the "password" thing from the config and the code since I seem
+to not be using that anyway and it introduces a possible security breach if
+you upload your config by mistake (not that the token isn't the same but whatever).
+
+Other changes include continuously updating the code to work on the latest version
+of discord.js version 12, small optimizations, and udpates that I can't be bothered
+to properly document. 
 
 
 ### UPDATING TO VERSION 1.2.1 (2017-07-24)

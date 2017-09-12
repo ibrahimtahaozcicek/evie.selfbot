@@ -42,4 +42,3 @@ fs.readdir('./events/', (err, files) => {
 });
 
 client.login(config.botToken);
-client.password = config.password;
