@@ -6,7 +6,8 @@ my [Guardian bot](https://github.com/eslachance/guardian) or my [Dithcord Librar
 
 But now you can also enjoy the use of my personal selfbot! However, one caveat needs to be established:
 
-> I AM NOT RESPONSIBLE AND CANNOT BE HELD LIABLE IF YOU MESS UP WITH SELFBOTS. THIS INCLUDES BUT IS NOT LIMITED TO LOSING PRIVILEGES, GETTING KICKED OR BANNED FROM SERVERS, OR BEING BANNED.
+> USING SELFBOTS IS [AGAINST THE DISCORD TERMS OF SERVICE](https://discordapp.com/developers/docs/topics/oauth2). I AM NOT RESPONSIBLE AND CANNOT BE HELD LIABLE IF YOU LOSE PRIVILEGES, GET KICKED OR BANNED FROM ANY SERVER OR FROM DISCORD.
+> So why does this still exist? Because we're all rebels and we like taking risks in order to get cool stuff.
 
 Also, an important point is: this requires *some* knowledge of javascript and your operating system to be able to use. If you don't know JavaScript, you're going to have a bad time.
 
