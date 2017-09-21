@@ -30,6 +30,7 @@ In a command prompt in your projects folder (wherever that may be) run the follo
 
 Once finished: 
 
+- Create a webhook in a channel where you want logs to appear (Channel Settings, Webhooks) and grab its ID and token.
 - In the folder from where you ran the git command, run `cd evie.selfbot` and then run `npm install`
 - Rename `config.json.example` to `config.json`
 - Edit `config.json` and enter your token and other details as indicated. It should look like this afterwards: 
