@@ -1,5 +1,3 @@
-if(process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or higher is required. Update Node on your system. If you ask me 'why doesn't your selfbot work' and I see this error I will slap you silly.");
-
 const Discord = require("discord.js");
 const client = new Discord.Client({
     disabledEvents: ['GUILD_BAN_ADD', 'GUILD_BAN_REMOVE', 'CHANNEL_PINS_UPDATE',
@@ -10,6 +8,7 @@ const client = new Discord.Client({
 const config = require('./config.json');
 const fs = require("fs");
 const Enmap = require("enmap");
+const EnmapLevel = require("enmap-level");
 
 client.config = config;
 
@@ -18,7 +17,7 @@ client.db = require("./modules/PersistentDB.js");
 
 client.commands = new Enmap();
 client.aliases = new Enmap();
-client.testing = new Enmap({name: 'testing', persistent: true});
+client.testing = new Enmap({ provider: new EnmapLevel({ name: 'testing' }) });
 
 fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);

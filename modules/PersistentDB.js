@@ -1,8 +1,9 @@
 const Enmap = require("enmap");
+const EnmapLevel = require("enmap-level");
 
 class PersistentDB extends Enmap {
   constructor(client, PCName, editable = "contents") {
-    super({name: PCName, persistent: true});
+    super({ provider: new EnmapLevel({ name: PCName }) });
     this.client = client;
     this.type = PCName.toLowerCase().slice(0, -1);
     this.editable = editable;
@@ -46,24 +47,32 @@ class PersistentDB extends Enmap {
   }
   
   async export() {
+    console.log('Starting Export Procedure');
     const pageExport = {};
-    this.forEach((s,p)=> {
-        s = JSON.parse(s);
-      pageExport[p] = {url: s.url, snippet: s.snippet};
-    });
+    for (const [key, val] of this) {
+      pageExport[key] = {url: val.url, snippet: val.snippet};
+    }
     const hasteURL = await require("snekfetch")
       .post("http://how.evie-banned.me/documents")
       .send(pageExport).catch(e => {throw new Error(`Error posting data: ${e}`)});
     return `http://how.evie-banned.me/${hasteURL.body.key}.json`;
   }
   
+  async clear() {
+    for (const [key, val] of this) {
+        await this.deleteAsync(key);
+    }
+    return `${this.type} database has been cleared.`;
+  }
+
   async import(url) {
-    const pageData = await require("snekfetch").get(url)
+    let pageData = await require("snekfetch").get(url)
       .catch(e => {throw new Error(`Error fetching data: ${e}`)});
-    Object.entries(JSON.parse(pageData.text)).forEach(
+    pageData = JSON.parse(pageData.text);
+    Object.entries(pageData).forEach(
       ([key, value]) => this.set(key, value)
     );
-    return `Import successful: ${this.size} values now in Database}`;
+    return `Import successful: ${this.size} values now in Database`;
   }
 
   list() {
