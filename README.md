@@ -73,6 +73,20 @@ adding your own commands, events, etc.
 
 If relevant, updating to a new version here will indicate what you need to do.
 
+### UPDATING TO VERSION 2.1.0 (2017-10-08)
+
+This version updates to Enmap version 0.4.1. 0.4.x introduces *providers* which 
+separate the persistence from the Map itself. To update to this version: 
+
+- Backup your `./data/` folder (just in case, I didn't have any issues)
+- Shutdown the bot
+- Do a `git pull` to get the updates (app.js and modules/PersistentDB.js are the 2 files)
+- do `npm i` as the version of enmap changed, and `enmap-level` must be installed.
+- Start the bot again. 
+
+Per my tests, there *should* be no change at all in data access. None of my tags, 
+or quotes, or guide entries were lost. But, backup's always a good thing!
+
 ### UPDATING TO VERSION 2.0.0 (2017-09-12)
 
 Eh why not bump a version, I feel like it. 
