@@ -50,12 +50,12 @@ class PersistentDB extends Enmap {
     console.log('Starting Export Procedure');
     const pageExport = {};
     for (const [key, val] of this) {
-      pageExport[key] = {url: val.url, snippet: val.snippet};
+      pageExport[key] = val;
     }
     const hasteURL = await require("snekfetch")
       .post("http://how.evie-banned.me/documents")
       .send(pageExport).catch(e => {throw new Error(`Error posting data: ${e}`)});
-    return `http://how.evie-banned.me/${hasteURL.body.key}.json`;
+    return `http://how.evie-banned.me/raw/${hasteURL.body.key}`;
   }
   
   async clear() {
