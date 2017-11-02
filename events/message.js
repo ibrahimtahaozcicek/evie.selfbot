@@ -8,6 +8,11 @@ module.exports = async (client, message) => {
   }
 
   if(message.author.id !== client.user.id) return;
+  client.myStatus.lastSpoken = Date.now();
+  if(client.myStatus.away) { 
+    console.log("Oh, you're back!");
+    client.myStatus.away = false;
+  }
   if(message.content.indexOf(client.config.prefix) !== 0) return;
 
   const args = message.content.split(/ +/g);

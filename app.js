@@ -18,6 +18,11 @@ client.db = require("./modules/PersistentDB.js");
 client.commands = new Enmap();
 client.aliases = new Enmap();
 client.testing = new Enmap({ provider: new EnmapLevel({ name: 'testing' }) });
+client.myStatus = {
+  lastSpoken: Date.now(),
+  away: false,
+  timeout: 900000
+};
 
 fs.readdir('./commands/', (err, files) => {
   if (err) console.error(err);

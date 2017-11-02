@@ -12,4 +12,12 @@ module.exports = async client => {
   } catch(O_o){}
   await wait(2000);
   client.log("log", "Bot Ready", client.user, `Ready to spy on ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} servers.`);
+  
+  // Test: Loop for inactivity!
+  client.myStatus.interval = setInterval(() => {
+    if(Date.now() - client.myStatus.lastSpoken > 1000*60 && !client.myStatus.away) {
+      console.log("Currently Away!");
+      client.myStatus.away = true;
+    }
+  }, client.myStatus.timeout);
 };
