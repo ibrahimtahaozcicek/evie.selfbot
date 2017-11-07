@@ -23,11 +23,14 @@ module.exports = (client) => {
     const hook = new WebhookClient(client.config.webhook.id, client.config.webhook.token);
     if(!hook)  return console.log(`[${type}] [${title}]\n[${author.username} (${author.id})]${msg}`);
     const color = embedColors[type] || 3447003;
+    let avatar;
+    try { avatar = author.avatarURL(); }
+    catch (e) { avatar = author.avatar; }
     hook.send({embed: {
       color,
       author: {
-        name: `${author.username} (${author.id})`,
-        icon_url: author.avatarURL()
+        name: `${author.tag} (${author.id})`,
+        icon_url: avatar
       },
       title: title,
       description: msg

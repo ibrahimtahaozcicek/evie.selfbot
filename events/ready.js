@@ -16,7 +16,6 @@ module.exports = async client => {
   // Test: Loop for inactivity!
   client.myStatus.interval = setInterval(() => {
     if(Date.now() - client.myStatus.lastSpoken > 1000*60 && !client.myStatus.away) {
-      console.log("Currently Away!");
       client.myStatus.away = true;
     }
   }, client.myStatus.timeout);
