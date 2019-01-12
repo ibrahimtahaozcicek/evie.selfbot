@@ -1,8 +1,4 @@
 {
-  "botToken": "insert your bot token here between the double quotes",
-  "webhook": {
-    "id": "Enter the Webhook's ID here (the numbers in the webhook URL)",
-    "token": "Enter the webhook's token here (the last part of the URL)"
-  },
-  "prefix": "/"
+    "TOKEN": "NTE4MTI4NjA0NzczNjEzNND4", 
+    "PREFIX": "s."
 }
